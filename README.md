@@ -4,7 +4,7 @@ The website and docs for Chord, a chat client for XMPP.
 
 - Homepage: `src/pages/index.astro`
 - Docs: `src/content/docs/docs/` (Markdown, rendered by [Starlight](https://starlight.astro.build))
-- Live site: https://abbyfluoroethane.github.io/chord-site/
+- Live site: https://bigaouette.com/chord-site/
 
 ## Run it locally
 
@@ -40,7 +40,7 @@ The site lives under `/chord-site/`, so a hard-coded link such as `/docs/` break
 <a href={url('docs/self-host/')}>Self-host</a>
 ```
 
-If the site moves to a custom domain, remove `base` from `astro.config.mjs`.
+If the site moves to its own domain (for example chord.example), remove `base` from `astro.config.mjs` and change `site`.
 
 ## Open items
 

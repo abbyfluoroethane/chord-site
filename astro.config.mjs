@@ -7,8 +7,8 @@ const fonts =
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://abbyfluoroethane.github.io',
-	// The repo name. Remove this line if the site moves to a custom domain.
+	site: 'https://bigaouette.com',
+	// The repo name. The site serves from bigaouette.com/chord-site/.
 	base: '/chord-site',
 	integrations: [
 		starlight({
