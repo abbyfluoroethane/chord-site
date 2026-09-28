@@ -15,7 +15,7 @@ The website and docs for Chord, a chat client for XMPP.
 
 ## Deploy
 
-A push to `main` starts `.github/workflows/deploy.yml`. The workflow builds the site and publishes it to GitHub Pages.
+A push to `main` starts `.github/workflows/astro.yml`. The workflow builds the site and publishes it to GitHub Pages.
 
 Before the first deploy, turn on Pages once:
 
