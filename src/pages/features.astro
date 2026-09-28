@@ -1,0 +1,185 @@
+---
+import Base from '../layouts/Base.astro';
+import AppMock from '../components/AppMock.astro';
+import FederationDiagram from '../components/FederationDiagram.astro';
+import { url } from '../lib/url';
+import '../styles/home.css';
+import '../styles/features.css';
+
+const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/xep-${n}.html`, label: `XEP-${n} ${label}` });
+---
+
+<Base title="Features: Chord" description="Chord looks like the chat app you already use. The difference is that nobody owns the network under it.">
+	<section class="stack page-head">
+		<h1 class="display page-title">You already know how to use it.</h1>
+		<p class="lede">
+			Circles on the left. Channels next to them. Messages in the middle. If you have used a chat app in the last ten years, you do not
+			need a tour. The one new part is the network under it, and nobody owns that.
+		</p>
+		<p class="status-note"><strong>In development.</strong> This page lists what Chord is built to do.</p>
+	</section>
+
+	<!-- The familiar layout -->
+	<section class="familiar" id="layout">
+		<div class="stack familiar-head">
+			<span class="feature-kicker">The layout</span>
+			<h2 class="display display-md">Your hands already know where everything is.</h2>
+			<p class="lede">
+				We did not reinvent chat. We moved it to a network where you keep your account. Your friends can make the switch on a Friday night
+				and be in the right channel by Saturday.
+			</p>
+		</div>
+		<div class="familiar-body">
+			<AppMock />
+			<ol class="layout-legend">
+				<li>
+					<div><strong>The rail</strong><span>Every circle you belong to, one icon each, down the left edge. Right where you look for it.</span></div>
+				</li>
+				<li>
+					<div><strong>The channel list</strong><span>Channels for the circle you are in, with your DMs below them.</span></div>
+				</li>
+				<li>
+					<div><strong>The conversation</strong><span>Messages grouped by person. A mention of your name lights up so you do not miss it.</span></div>
+				</li>
+				<li>
+					<div><strong>The composer</strong><span>Type, press Enter, done. There is nothing to learn.</span></div>
+				</li>
+			</ol>
+		</div>
+		<p class="aside-line">We call them circles, not servers. A server in Chord is the computer that holds your account, and it can be yours.</p>
+	</section>
+
+	<!-- Circles and channels -->
+	<section class="feature" id="circles">
+		<div class="stack feature-copy">
+			<span class="feature-kicker">Circles and channels</span>
+			<h2 class="display display-md">A circle for every group you are in.</h2>
+			<p class="lede">
+				A circle holds the channels for one group: your crew, your team, your friends. Switch circles from the rail. Unread counts show you
+				where the conversation went while you were away.
+			</p>
+			<div class="xep"><a href={xep('0045', 'Multi-User Chat').href}>{xep('0045', 'Multi-User Chat').label}</a></div>
+		</div>
+		<div class="feature-visual">
+			<div class="vis" role="img" aria-label="A list of circles with unread counts">
+				<div class="vis-label">YOUR CIRCLES</div>
+				<div class="vis-row is-active"><span class="vis-circle is-active">GC</span><span class="grow">Ground crew<br /><span class="vis-sub"># launch-ops</span></span><span class="vis-badge">3</span></div>
+				<div class="vis-row"><span class="vis-circle">KB</span><span class="grow">Keyboard club<br /><span class="vis-sub"># show-and-tell</span></span><span class="vis-badge">12</span></div>
+				<div class="vis-row"><span class="vis-circle">RS</span><span class="grow">Roommates<br /><span class="vis-sub"># groceries</span></span></div>
+			</div>
+		</div>
+	</section>
+
+	<!-- DMs and presence -->
+	<section class="feature" id="dms">
+		<div class="stack feature-copy">
+			<span class="feature-kicker">DMs and presence</span>
+			<h2 class="display display-md">See who is around before you ask.</h2>
+			<p class="lede">
+				Direct messages sit under your channels, one click away. Each person shows a status. Chord marks each status with a shape as well as a
+				color, so you can read it even if you cannot tell the colors apart.
+			</p>
+		</div>
+		<div class="feature-visual">
+			<div class="vis" role="img" aria-label="Four people with different statuses">
+				<div class="vis-label">DIRECT</div>
+				<div class="vis-row"><span class="pres pres-online"></span><span class="grow">mika</span><span class="vis-sub">Available</span></div>
+				<div class="vis-row"><span class="pres pres-away"></span><span class="grow">rin</span><span class="vis-sub">Away</span></div>
+				<div class="vis-row"><span class="pres pres-dnd"></span><span class="grow">jo</span><span class="vis-sub">Do not disturb</span></div>
+				<div class="vis-row"><span class="pres pres-offline"></span><span class="grow">sam</span><span class="vis-sub">Offline</span></div>
+			</div>
+		</div>
+	</section>
+
+	<!-- History and devices -->
+	<section class="feature" id="devices">
+		<div class="stack feature-copy">
+			<span class="feature-kicker">History on every device</span>
+			<h2 class="display display-md">Pick up the conversation where you left it.</h2>
+			<p class="lede">
+				Your server keeps your message history. Sign in on your laptop, your phone, and your desktop, and each one shows the same
+				conversation.
+			</p>
+			<div class="xep">
+				<a href={xep('0313', 'Message Archive').href}>{xep('0313', 'Message Archive').label}</a>
+				<a href={xep('0280', 'Carbons').href}>{xep('0280', 'Carbons').label}</a>
+			</div>
+		</div>
+		<div class="feature-visual">
+			<div class="vis" role="img" aria-label="The same conversation on three devices">
+				<div class="vis-devices">
+					<div class="vis-device"><strong>Laptop</strong><span class="vis-line"></span><span class="vis-line"></span><span class="vis-line is-brand"></span></div>
+					<div class="vis-device"><strong>Phone</strong><span class="vis-line"></span><span class="vis-line"></span><span class="vis-line is-brand"></span></div>
+					<div class="vis-device"><strong>Desktop</strong><span class="vis-line"></span><span class="vis-line"></span><span class="vis-line is-brand"></span></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Files -->
+	<section class="feature" id="files">
+		<div class="stack feature-copy">
+			<span class="feature-kicker">Files and images</span>
+			<h2 class="display display-md">Drop it in the channel.</h2>
+			<p class="lede">
+				Share photos, screenshots, and files in any channel or DM. Your server stores them, so the size limit is whatever your server
+				allows.
+			</p>
+			<div class="xep"><a href={xep('0363', 'HTTP File Upload').href}>{xep('0363', 'HTTP File Upload').label}</a></div>
+		</div>
+		<div class="feature-visual">
+			<div class="vis" role="img" aria-label="An image and a file shared in a channel">
+				<div class="vis-image">static-fire.jpg</div>
+				<div class="vis-file">
+					<span class="vis-file-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg></span>
+					<span class="grow">torque-spec.pdf<br /><span class="vis-sub">From jo</span></span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Federation -->
+	<section class="feature" id="federation">
+		<div class="stack feature-copy">
+			<span class="feature-kicker">One address, any server</span>
+			<h2 class="display display-md">Talk to people on other servers.</h2>
+			<p class="lede">
+				Your address looks like an email address: you@yourserver.org. People on other XMPP servers can join your circles and send you DMs.
+				Chord shows their server next to their name, so you always know where a message came from.
+			</p>
+			<div class="vis" role="img" aria-label="A message from a person on another server">
+				<div class="vis-row"><span class="vis-avatar is-ink"></span><span class="grow"><strong>sam</strong> <span class="vis-server">@other.example</span><br />on my way over from the other shop.</span></div>
+			</div>
+		</div>
+		<div class="feature-visual">
+			<FederationDiagram />
+		</div>
+	</section>
+
+	<!-- Comparison -->
+	<section class="section" id="compare">
+		<h2 class="display display-md">Same shape. Different owner.</h2>
+		<div class="compare-wrap">
+			<table class="compare">
+				<thead>
+					<tr><th scope="col"></th><th scope="col">Chord</th><th scope="col">The app you are thinking of</th></tr>
+				</thead>
+				<tbody>
+					<tr><th scope="row">The layout</th><td class="is-chord">Circles, channels, DMs</td><td>Also that</td></tr>
+					<tr><th scope="row">Who runs the servers</th><td class="is-chord">You, a friend, or any XMPP host</td><td>One company</td></tr>
+					<tr><th scope="row">Your account</th><td class="is-chord">An address on a server you pick</td><td>A row in their database</td></tr>
+					<tr><th scope="row">Other apps</th><td class="is-chord">Any XMPP client can sign in to your account</td><td>Only theirs</td></tr>
+					<tr><th scope="row">If the rules change</th><td class="is-chord">Move to another server, or run your own</td><td>Agree, or leave your circles behind</td></tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+
+	<section class="cta">
+		<h2 class="display display-md">Bring your circle.</h2>
+		<div class="row">
+			<a href={url('docs/getting-started/')} class="btn btn-dark btn-lg">Download Chord</a>
+			<a href={url('docs/find-a-server/')} class="btn btn-lg">Find a server</a>
+		</div>
+	</section>
+</Base>
