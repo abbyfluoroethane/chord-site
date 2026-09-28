@@ -1,0 +1,43 @@
+/* starlight.css: maps the Chord tokens onto the docs theme (Starlight). */
+
+:root {
+	--sl-font: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+	--sl-font-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+}
+
+/* Dark mode. */
+:root {
+	--sl-color-accent-low: #3a2c16;
+	--sl-color-accent: #f2a93b;
+	--sl-color-accent-high: #fbe7c4;
+	--sl-color-white: #ece8e1;
+	--sl-color-gray-1: #ece8e1;
+	--sl-color-gray-2: #c8c4bd;
+	--sl-color-gray-3: #9aa0a8;
+	--sl-color-gray-4: #5b6068;
+	--sl-color-gray-5: #2e333b;
+	--sl-color-gray-6: #181b20;
+	--sl-color-black: #111316;
+}
+
+/* Light mode. */
+:root[data-theme='light'] {
+	--sl-color-accent-low: #fbe7c4;
+	--sl-color-accent: #c47b0c;
+	--sl-color-accent-high: #6b4306;
+	--sl-color-white: #1a1c20;
+	--sl-color-gray-1: #1a1c20;
+	--sl-color-gray-2: #33363c;
+	--sl-color-gray-3: #5b6068;
+	--sl-color-gray-4: #8a8e94;
+	--sl-color-gray-5: #cfcac0;
+	--sl-color-gray-6: #ece9e2;
+	--sl-color-gray-7: #f6f4ef;
+	--sl-color-black: #f6f4ef;
+}
+
+.site-title {
+	font-family: 'Bricolage Grotesque', ui-sans-serif, sans-serif;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}

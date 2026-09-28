@@ -1,0 +1,274 @@
+/* home.css: styles used only on the homepage. */
+
+/* ---------- hero ---------- */
+.hero {
+	padding-block: var(--space-24) 88px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-16);
+	align-items: center;
+}
+.hero-copy {
+	flex: 1 1 440px;
+	max-width: 520px;
+	gap: 28px;
+}
+.hero-title {
+	font-size: clamp(52px, 7vw, 88px);
+}
+.hero-copy .lede {
+	max-width: 480px;
+}
+
+/* ---------- app mock (replace with a real screenshot when the client exists) ---------- */
+.mock {
+	flex: 1 1 560px;
+	max-width: 640px;
+	height: 420px;
+	background: var(--surface-100);
+	border: 1px solid var(--line);
+	border-radius: var(--radius-lg);
+	overflow: hidden;
+	display: flex;
+	font-size: 13px;
+	line-height: 19px;
+}
+.mock-rail {
+	width: 64px;
+	flex-shrink: 0;
+	background: var(--surface-300);
+	padding: var(--space-3) 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+}
+.mock-circle {
+	width: 40px;
+	height: 40px;
+	border-radius: 12px;
+	background: var(--surface-200);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--ink-muted);
+}
+.mock-circle.is-home {
+	background: var(--brand);
+}
+.mock-circle.is-home svg {
+	stroke: var(--on-brand);
+}
+.mock-circle.is-active {
+	background: var(--surface-100);
+	border: 2px solid var(--ink);
+	color: var(--ink);
+}
+.mock-circle.is-add {
+	background: transparent;
+	border: 1px dashed var(--line);
+	font-size: 20px;
+	font-weight: 400;
+}
+.mock-divider {
+	width: 24px;
+	height: 1px;
+	background: var(--line);
+}
+.mock-channels {
+	width: 176px;
+	flex-shrink: 0;
+	background: var(--surface-200);
+	border-right: 1px solid var(--line);
+	padding: 14px 10px;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-1);
+}
+.mock-circle-name {
+	font-size: 15px;
+	font-weight: 600;
+	padding: 0 6px 10px;
+	margin-bottom: var(--space-2);
+	border-bottom: 1px solid var(--line);
+}
+.mock-label {
+	font-size: 11px;
+	font-weight: 500;
+	letter-spacing: 0.06em;
+	color: var(--ink-muted);
+	padding: var(--space-1) 6px;
+}
+.mock-item + .mock-label {
+	padding-top: var(--space-3);
+}
+.mock-item {
+	font-size: 14px;
+	color: var(--ink-muted);
+	padding: 5px 6px;
+	border-radius: 6px;
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+}
+.mock-item.is-active {
+	color: var(--ink);
+	background: var(--surface-300);
+	font-weight: 500;
+}
+.presence {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+}
+.presence-online {
+	background: var(--online);
+}
+.presence-dnd {
+	height: 3px;
+	border-radius: 2px;
+	background: var(--danger);
+}
+.mock-main {
+	flex-grow: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+}
+.mock-header {
+	height: 48px;
+	flex-shrink: 0;
+	padding: 0 var(--space-4);
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid var(--line);
+	font-size: 15px;
+	font-weight: 600;
+}
+.mock-messages {
+	flex-grow: 1;
+	padding: var(--space-4);
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	justify-content: flex-end;
+}
+.msg {
+	display: flex;
+	gap: 10px;
+}
+.msg.is-mention {
+	background: var(--brand-soft);
+	margin: 0 calc(-1 * var(--space-4));
+	padding: 6px var(--space-4);
+}
+.msg-avatar {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	flex-shrink: 0;
+	background: var(--surface-300);
+}
+.msg-avatar.is-accent {
+	background: var(--accent);
+}
+.msg-avatar.is-danger {
+	background: var(--danger);
+}
+.msg-avatar.is-ink {
+	background: var(--ink);
+}
+.msg-meta {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+.msg-author {
+	font-weight: 600;
+}
+.msg-server {
+	font-family: var(--font-mono);
+	font-size: 11px;
+	color: var(--accent);
+}
+.msg-time {
+	font-size: 11px;
+	color: var(--ink-muted);
+}
+.mention {
+	color: var(--brand);
+	font-weight: 500;
+}
+.mock-composer {
+	margin: 0 var(--space-4) var(--space-4);
+	height: 40px;
+	border-radius: var(--radius-md);
+	background: var(--surface-300);
+	padding: 0 var(--space-3);
+	display: flex;
+	align-items: center;
+	color: var(--ink-muted);
+}
+@media (max-width: 720px) {
+	.mock-channels {
+		display: none;
+	}
+}
+
+/* ---------- protocols panel ---------- */
+.protocols-copy {
+	flex: 1 1 360px;
+	gap: 20px;
+}
+.protocols-copy .lede {
+	font-size: 17px;
+	line-height: 26px;
+	max-width: 560px;
+}
+.protocols-link {
+	font-weight: 600;
+}
+
+/* ---------- federation diagram ---------- */
+.fed {
+	flex: 0 1 360px;
+	max-width: 100%;
+	height: auto;
+}
+.fed-ring {
+	fill: none;
+	stroke: var(--line);
+	stroke-width: 4;
+}
+.fed-link {
+	stroke: var(--ink-muted);
+	stroke-width: 2;
+	stroke-linecap: round;
+}
+.fed-link-you {
+	stroke: var(--brand);
+	stroke-width: 3;
+}
+.fed-link-remote {
+	stroke: var(--accent);
+	stroke-width: 3;
+}
+.fed-node {
+	fill: var(--ink);
+}
+.fed-node-you {
+	fill: var(--brand);
+}
+.fed-node-remote {
+	fill: var(--accent);
+}
+.fed-label {
+	fill: var(--ink-muted);
+	font-family: var(--font-mono);
+	font-size: 12px;
+}
+.fed-label-you {
+	fill: var(--ink);
+}

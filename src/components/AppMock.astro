@@ -1,0 +1,61 @@
+---
+// A static picture of the Chord client. Replace it with a real screenshot when the client exists.
+const channels = [
+	{ name: 'general' },
+	{ name: 'launch-ops', active: true },
+	{ name: 'parts' },
+	{ name: 'off-topic' },
+];
+const messages = [
+	{ author: 'mika', time: '15:02', avatar: 'is-accent', body: 'static fire moved to 14:00. who has the torque wrench?' },
+	{ author: 'jo', time: '15:04', avatar: 'is-danger', mention: '@rin', body: 'bay 2, top drawer.' },
+	{ author: 'sam', server: '@other.example', time: '15:05', avatar: 'is-ink', body: 'on my way over from the other shop.' },
+];
+---
+
+<div class="mock" role="img" aria-label="The Chord app: circle rail, channel list, and a channel with messages">
+	<div class="mock-rail">
+		<div class="mock-circle is-home">
+			<svg width="24" height="24" viewBox="0 0 64 64" fill="none" stroke-width="5" stroke-linecap="round" aria-hidden="true">
+				<circle cx="32" cy="32" r="22"></circle>
+				<line x1="11.3" y1="39.5" x2="39.5" y2="11.3"></line>
+			</svg>
+		</div>
+		<div class="mock-divider"></div>
+		<div class="mock-circle is-active">GC</div>
+		<div class="mock-circle">KB</div>
+		<div class="mock-circle">RS</div>
+		<div class="mock-circle is-add">+</div>
+	</div>
+	<div class="mock-channels">
+		<div class="mock-circle-name">Ground crew</div>
+		<div class="mock-label">CHANNELS</div>
+		{channels.map((c) => <div class:list={['mock-item', { 'is-active': c.active }]}># {c.name}</div>)}
+		<div class="mock-label">DIRECT</div>
+		<div class="mock-item"><span class="presence presence-online"></span>mika</div>
+		<div class="mock-item"><span class="presence presence-dnd"></span>jo</div>
+	</div>
+	<div class="mock-main">
+		<div class="mock-header"># launch-ops</div>
+		<div class="mock-messages">
+			{
+				messages.map((m) => (
+					<div class:list={['msg', { 'is-mention': m.mention }]}>
+						<div class:list={['msg-avatar', m.avatar]} />
+						<div>
+							<div class="msg-meta">
+								<span class="msg-author">{m.author}</span>
+								{m.server && <span class="msg-server">{m.server}</span>}
+								<span class="msg-time">{m.time}</span>
+							</div>
+							<div>
+								{m.mention && <span class="mention">{m.mention}</span>} {m.body}
+							</div>
+						</div>
+					</div>
+				))
+			}
+		</div>
+		<div class="mock-composer">Message #launch-ops</div>
+	</div>
+</div>

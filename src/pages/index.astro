@@ -1,0 +1,74 @@
+---
+import Base from '../layouts/Base.astro';
+import AppMock from '../components/AppMock.astro';
+import FederationDiagram from '../components/FederationDiagram.astro';
+import { url } from '../lib/url';
+import '../styles/home.css';
+
+const features = [
+	{
+		title: 'One address, any server',
+		body: 'Your address looks like an email address. Talk to people on any XMPP server, not only the one you signed up on.',
+		icon: '<circle cx="12" cy="12" r="9"/><line x1="5" y1="15" x2="16" y2="5"/>',
+	},
+	{
+		title: 'Circles, channels, and DMs',
+		body: 'The layout you already use. Group channels into circles, and keep DMs one click away.',
+		icon: '<rect x="3" y="4" width="5" height="16" rx="2"/><line x1="11" y1="7" x2="21" y2="7"/><line x1="11" y1="12" x2="21" y2="12"/><line x1="11" y1="17" x2="17" y2="17"/>',
+	},
+	{
+		title: 'Your server, or ours',
+		body: 'Sign up on a public server, or run your own. Chord works the same on both.',
+		icon: '<rect x="4" y="4" width="16" height="6" rx="1.5"/><rect x="4" y="14" width="16" height="6" rx="1.5"/><line x1="8" y1="7" x2="8.01" y2="7"/><line x1="8" y1="17" x2="8.01" y2="17"/>',
+	},
+];
+---
+
+<Base title="Chord: chat on XMPP" description="Chord is chat with circles, channels, and DMs. It runs on XMPP, so no company owns the network.">
+	<section class="hero">
+		<div class="stack hero-copy">
+			<h1 class="display hero-title">Strike a chord in your <span class="hl">circle.</span></h1>
+			<p class="lede">
+				Chord is chat with circles, channels, and DMs. It runs on XMPP, so your account works with any server, and no company owns the
+				network.
+			</p>
+			<div class="row">
+				<a href={url('docs/getting-started/')} class="btn btn-primary btn-lg">Download Chord</a>
+				<a href={url('docs/find-a-server/')} class="btn btn-lg">Find a server</a>
+			</div>
+			<p class="mono muted">Already on XMPP? Sign in with your address, like you@yourserver.org</p>
+		</div>
+		<AppMock />
+	</section>
+
+	<section id="features" class="section">
+		<h2 class="display display-md">The chat you know, on a network nobody owns.</h2>
+		<div class="grid-3">
+			{
+				features.map((f) => (
+					<div class="card">
+						<svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true" set:html={f.icon} />
+						<h3>{f.title}</h3>
+						<p>{f.body}</p>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<section id="protocols" class="panel">
+		<div class="stack protocols-copy">
+			<h2 class="display display-md">Protocols, not platforms.</h2>
+			<p class="lede">
+				Chord speaks XMPP, an open standard from the IETF. Servers talk to each other directly, so no single company sits in the middle of
+				your conversations.
+			</p>
+			<ul class="dot-list">
+				<li>Your account works in other XMPP apps too. Chord is one client of many.</li>
+				<li>Your circles live on your server, not on ours.</li>
+			</ul>
+			<a href={url('docs/')} class="protocols-link">How federation works</a>
+		</div>
+		<FederationDiagram />
+	</section>
+</Base>

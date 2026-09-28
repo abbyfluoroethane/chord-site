@@ -1,0 +1,37 @@
+---
+// Four servers on a ring. Each chord is a direct server-to-server link.
+const nodes = {
+	you: { x: 80, y: 84, label: 'your.server', lx: 80, ly: 60 },
+	chat: { x: 290, y: 100, label: 'chat.example', lx: 300, ly: 76 },
+	shop: { x: 296, y: 185, label: 'shop.example', lx: 300, ly: 214 },
+	other: { x: 150, y: 267, label: 'other.example', lx: 150, ly: 294 },
+};
+const links: [keyof typeof nodes, keyof typeof nodes, string?][] = [
+	['chat', 'other'],
+	['chat', 'shop'],
+	['other', 'shop'],
+	['you', 'shop'],
+	['you', 'chat', 'fed-link-you'],
+	['you', 'other', 'fed-link-remote'],
+];
+const nodeClass = { you: 'fed-node-you', other: 'fed-node-remote' } as Record<string, string>;
+---
+
+<svg class="fed" width="360" height="300" viewBox="0 0 360 300" role="img" aria-label="Four servers on a ring, each linked directly to the others">
+	<circle class="fed-ring" cx="180" cy="150" r="120"></circle>
+	{
+		links.map(([a, b, extra]) => (
+			<line class:list={['fed-link', extra]} x1={nodes[a].x} y1={nodes[a].y} x2={nodes[b].x} y2={nodes[b].y} />
+		))
+	}
+	{
+		Object.entries(nodes).map(([key, n]) => (
+			<>
+				<circle class:list={['fed-node', nodeClass[key]]} cx={n.x} cy={n.y} r="10" />
+				<text class:list={['fed-label', { 'fed-label-you': key === 'you' }]} x={n.lx} y={n.ly} text-anchor="middle">
+					{n.label}
+				</text>
+			</>
+		))
+	}
+</svg>
