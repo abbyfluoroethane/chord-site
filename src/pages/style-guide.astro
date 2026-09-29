@@ -1,0 +1,325 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../lib/url';
+import '../styles/home.css';
+import '../styles/features.css';
+import '../styles/style-guide.css';
+
+// Colors mirror the tokens in src/styles/chord.css. Change them there first, then here.
+const colors = [
+	{ group: 'Surfaces', items: [
+		{ name: 'surface-100', dark: '#111316', light: '#F6F4EF', usage: 'Page background and the message pane.' },
+		{ name: 'surface-200', dark: '#181B20', light: '#ECE9E2', usage: 'Cards, panels, the channel list.' },
+		{ name: 'surface-300', dark: '#21252B', light: '#E1DDD4', usage: 'The circle rail, hovered rows, inputs.' },
+		{ name: 'line', dark: '#2E333B', light: '#CFCAC0', usage: 'Hairlines between panes. Borders, never shadows.' },
+	]},
+	{ group: 'Text', items: [
+		{ name: 'ink', dark: '#ECE8E1', light: '#1A1C20', usage: 'Main text on any surface.' },
+		{ name: 'ink-muted', dark: '#9AA0A8', light: '#5B6068', usage: 'Timestamps, addresses, secondary text.' },
+	]},
+	{ group: 'Brand', items: [
+		{ name: 'brand', dark: '#F2A93B', light: '#C47B0C', usage: 'Chord amber. The chord in the mark, primary buttons, mentions. In light mode, fills and icons only, never text.' },
+		{ name: 'brand-soft', dark: '#3A2C16', light: '#FBE7C4', usage: 'Behind a message that mentions you.' },
+		{ name: 'on-brand', dark: '#1A1C20', light: '#1A1C20', usage: 'Text and icons on an amber fill.' },
+		{ name: 'accent', dark: '#4CC3B5', light: '#0A655C', usage: 'Links, focus rings, and anything from another server.' },
+	]},
+	{ group: 'Status', items: [
+		{ name: 'online', dark: '#5BC46E', light: '#2E8B45', usage: 'Available. Always with the filled-dot shape.' },
+		{ name: 'danger', dark: '#F0676B', light: '#A82328', usage: 'Do not disturb, errors, destructive buttons. Always with the bar shape.' },
+	]},
+];
+
+const type = [
+	{ name: 'Display', spec: 'Bricolage Grotesque 700 · 40–88px · -0.03em', sample: 'Strike a chord.', style: 'font-family: var(--font-display); font-weight: 700; font-size: 56px; line-height: 1; letter-spacing: -0.03em;' },
+	{ name: 'Title', spec: 'IBM Plex Sans 600 · 18/24', sample: '# launch-ops', style: 'font-size: 18px; line-height: 24px; font-weight: 600;' },
+	{ name: 'Body', spec: 'IBM Plex Sans 400 · 15/22', sample: 'static fire moved to 14:00 tomorrow btw', style: 'font-size: 15px; line-height: 22px;' },
+	{ name: 'Meta', spec: 'IBM Plex Sans 500 · 12/16 · +0.02em', sample: 'today 15:53', style: 'font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: 0.02em; color: var(--ink-muted);' },
+	{ name: 'Address', spec: 'IBM Plex Mono 400 · 13/20', sample: 'you@yourserver.org', style: 'font-family: var(--font-mono); font-size: 13px; line-height: 20px;' },
+];
+
+const spacing = [
+	['space-1', 4], ['space-2', 8], ['space-3', 12], ['space-4', 16], ['space-6', 24], ['space-8', 32], ['space-16', 64], ['space-24', 96],
+] as const;
+const radii = [
+	['radius-sm', 4, 'Badges, inline code'], ['radius-md', 8, 'Buttons, inputs, rows'], ['radius-lg', 16, 'Cards, dialogs, circle icons'], ['full', '50%', 'Avatars, presence dots'],
+] as const;
+
+const logos = [
+	{ name: 'Lockup', file: 'chord-lockup', stage: 'is-light', wide: true, alt: 'Chord mark and wordmark, for light backgrounds' },
+	{ name: 'Lockup, reversed', file: 'chord-lockup-reversed', stage: 'is-dark', wide: true, alt: 'Chord mark and wordmark, for dark backgrounds' },
+	{ name: 'Mark', file: 'chord-mark', stage: 'is-light', alt: 'Chord mark, for light backgrounds' },
+	{ name: 'Mark, reversed', file: 'chord-mark-reversed', stage: 'is-dark', alt: 'Chord mark, for dark backgrounds' },
+	{ name: 'Wordmark', file: 'chord-wordmark', stage: 'is-light', wide: true, alt: 'Chord wordmark, for light backgrounds' },
+	{ name: 'Wordmark, reversed', file: 'chord-wordmark-reversed', stage: 'is-dark', wide: true, alt: 'Chord wordmark, for dark backgrounds' },
+	{ name: 'App icon', file: 'chord-app-icon', stage: 'is-brand', alt: 'Chord app icon' },
+	{ name: 'Lockup, one color', file: 'chord-lockup-mono-black', stage: 'is-light', wide: true, alt: 'Chord lockup in black' },
+	{ name: 'Lockup, one color, white', file: 'chord-lockup-mono-white', stage: 'is-dark', wide: true, alt: 'Chord lockup in white' },
+	{ name: 'Mark, one color', file: 'chord-mark-mono-black', stage: 'is-light', alt: 'Chord mark in black' },
+	{ name: 'Mark, one color, white', file: 'chord-mark-mono-white', stage: 'is-dark', alt: 'Chord mark in white' },
+	{ name: 'Wordmark, one color, white', file: 'chord-wordmark-mono-white', stage: 'is-dark', wide: true, alt: 'Chord wordmark in white' },
+];
+
+const names = [
+	['circle', 'a group of channels (an XEP-0503 space)', 'server, guild'],
+	['channel', 'a group chat room (MUC)', 'room, group'],
+	['DM', 'a one-to-one chat', 'private message'],
+	['server', 'the computer that holds an account', 'instance, homeserver'],
+	['address', 'a JID, like you@yourserver.org', 'handle, username'],
+];
+---
+
+<Base title="Style guide: Chord" description="The Chord brand: logo, color, type, spacing, components, and voice.">
+	<section class="stack page-head">
+		<h1 class="display page-title">Style guide</h1>
+		<p class="lede">
+			Everything that makes Chord look and sound like Chord. If you're building on it, writing about it, or just want the logo, it's all
+			here.
+		</p>
+		<nav class="sg-toc" aria-label="On this page">
+			<a href="#logo">Logo</a>
+			<a href="#color">Color</a>
+			<a href="#type">Type</a>
+			<a href="#space">Spacing and shape</a>
+			<a href="#components">Components</a>
+			<a href="#motion">Motion</a>
+			<a href="#voice">Voice</a>
+		</nav>
+	</section>
+
+	<!-- Logo -->
+	<section class="sg-section" id="logo">
+		<div class="stack sg-head">
+			<span class="feature-kicker">Logo</span>
+			<h2 class="display display-md">A ring with one chord across it.</h2>
+			<p class="lede">
+				In geometry, a chord is a straight line between two points on a circle. The two dots are two servers. The line is the direct link
+				between them. That's the whole idea of Chord, drawn in one shape.
+			</p>
+		</div>
+		<div class="sg-logos">
+			{
+				logos.map((l) => (
+					<div class="sg-logo">
+						<div class:list={['sg-logo-stage', l.stage]}>
+							<img src={url(`brand/${l.file}.svg`)} class:list={[l.wide ? 'is-wide' : 'is-square']} alt={l.alt} />
+						</div>
+						<div class="sg-logo-meta">
+							<span>{l.name}</span>
+							<span class="sg-files">
+								<a href={url(`brand/${l.file}.svg`)} download>SVG</a>
+								<a href={url(`brand/${l.file}.png`)} download>PNG</a>
+							</span>
+						</div>
+					</div>
+				))
+			}
+		</div>
+		<p class="muted">
+			<a href={url('brand/chord-brand.zip')} download>Download everything (ZIP)</a>. The wordmark is converted to outlines, so the files
+			work without the font installed. Square PNGs are 1024px. Wordmark and lockup PNGs are 512px tall. All PNGs have transparent
+			backgrounds.
+		</p>
+		<div class="sg-rules">
+			<div class="sg-rule"><h3><span class="sg-do">DO</span> Leave room</h3><p>Keep clear space of a quarter of the mark's width on every side.</p></div>
+			<div class="sg-rule"><h3><span class="sg-do">DO</span> Drop the dots when small</h3><p>At 16px and below, draw only the ring and the line. The dots turn to mush.</p></div>
+			<div class="sg-rule"><h3><span class="sg-dont">DON'T</span> Rotate or add chords</h3><p>One chord, at this angle. Two lines is a different logo, and a worse one.</p></div>
+			<div class="sg-rule"><h3><span class="sg-dont">DON'T</span> Use music imagery</h3><p>No notes, staves, or guitars. The name is about the line, not the sound.</p></div>
+		</div>
+	</section>
+
+	<!-- Color -->
+	<section class="sg-section" id="color">
+		<div class="stack sg-head">
+			<span class="feature-kicker">Color</span>
+			<h2 class="display display-md">Warm grays, one loud amber.</h2>
+			<p class="lede">
+				Dark mode comes first, because people chat at night. The neutrals lean warm, not blue-black. Amber is the only loud color, so save it
+				for things that matter: the primary action and your name.
+			</p>
+			<p class="sg-legend">Each chip shows dark mode on the left and light mode on the right.</p>
+		</div>
+		{
+			colors.map((g) => (
+				<div class="stack" style="gap: var(--space-4); align-items: stretch">
+					<h3 class="sg-mono muted">{g.group}</h3>
+					<div class="sg-swatches">
+						{g.items.map((c) => (
+							<div class="sg-swatch">
+								<div class="sg-chip">
+									<span style={`background: ${c.dark}`} />
+									<span style={`background: ${c.light}`} />
+								</div>
+								<div class="sg-swatch-meta">
+									<code>--{c.name}</code>
+									<div class="sg-hex">
+										<span>{c.dark}</span>
+										<span>{c.light}</span>
+									</div>
+									<span class="muted">{c.usage}</span>
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
+			))
+		}
+		<div class="sg-rules">
+			<div class="sg-rule"><h3><span class="sg-do">DO</span> Pair color with shape</h3><p>Status always has a shape too. Someone with red-green color blindness still needs to know you're busy.</p></div>
+			<div class="sg-rule"><h3><span class="sg-do">DO</span> Hit 4.5:1</h3><p>Every text color passes 4.5:1 on every surface it's meant for, in both themes.</p></div>
+			<div class="sg-rule"><h3><span class="sg-dont">DON'T</span> Go purple</h3><p>Next to the app you're thinking of, anything blurple reads as a knockoff.</p></div>
+		</div>
+	</section>
+
+	<!-- Type -->
+	<section class="sg-section" id="type">
+		<div class="stack sg-head">
+			<span class="feature-kicker">Type</span>
+			<h2 class="display display-md">Three families, each with one job.</h2>
+			<p class="lede">
+				Bricolage Grotesque for big display lines and the wordmark. IBM Plex Sans for everything people read. IBM Plex Mono for addresses
+				and code. All three are free on Google Fonts.
+			</p>
+		</div>
+		<div class="sg-type">
+			{
+				type.map((t) => (
+					<div class="sg-type-row">
+						<div class="sg-type-label">
+							<strong>{t.name}</strong>
+							<span>{t.spec}</span>
+						</div>
+						<div style={t.style}>{t.sample}</div>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<!-- Spacing and shape -->
+	<section class="sg-section" id="space">
+		<div class="stack sg-head">
+			<span class="feature-kicker">Spacing and shape</span>
+			<h2 class="display display-md">A 4px grid, and circles where it counts.</h2>
+			<p class="lede">
+				Space comes in steps of 4px. Corners come in three sizes. Avatars and presence dots are always round, because the circle is the brand
+				shape.
+			</p>
+		</div>
+		<div class="sg-scales">
+			<div class="sg-scale">
+				{
+					spacing.map(([n, px]) => (
+						<div class="sg-scale-row">
+							<code class="sg-mono">{n}</code>
+							<span class="muted sg-mono">{px}px</span>
+							<span class="sg-bar" style={`width: ${px * 2}px`} />
+						</div>
+					))
+				}
+			</div>
+			<div class="sg-scale">
+				{
+					radii.map(([n, v, use]) => (
+						<div class="sg-scale-row" style="grid-template-columns: 96px 64px 1fr">
+							<code class="sg-mono">{n}</code>
+							<span class="sg-radius" style={`border-radius: ${typeof v === 'number' ? v + 'px' : v}`} />
+							<span class="muted">{use}</span>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<!-- Components -->
+	<section class="sg-section" id="components">
+		<div class="stack sg-head">
+			<span class="feature-kicker">Components</span>
+			<h2 class="display display-md">The pieces, as they ship on this site.</h2>
+			<p class="lede">These are live, not pictures. The classes live in <code class="sg-mono">src/styles/chord.css</code>.</p>
+		</div>
+		<div class="sg-demo">
+			<span class="sg-demo-label">.btn · .btn-primary · .btn-lg</span>
+			<a href="#components" class="btn btn-primary btn-lg">Download Chord</a>
+			<a href="#components" class="btn btn-lg">Find a server</a>
+			<a href="#components" class="btn btn-primary">Download</a>
+			<a href="#components" class="btn">Open in browser</a>
+		</div>
+		<div class="sg-demo">
+			<span class="sg-demo-label">Presence: color and shape</span>
+			<div class="sg-presence">
+				<span><span class="pres pres-online" />Available</span>
+				<span><span class="pres pres-away" />Away</span>
+				<span><span class="pres pres-dnd" />Do not disturb</span>
+				<span><span class="pres pres-offline" />Offline</span>
+			</div>
+		</div>
+		<div class="sg-demo" style="padding: 0; overflow: hidden">
+			<div style="width: 100%; padding: var(--space-4) 0">
+				<span class="sg-demo-label" style="display: block; padding: 0 var(--space-4) var(--space-3)">Messages: a mention, and someone from another server</span>
+				<div class="msg is-mention">
+					<div class="msg-avatar is-danger" />
+					<div>
+						<div class="msg-meta"><span class="msg-author">jo</span><span class="msg-time">15:04</span></div>
+						<div><span class="mention">@rin</span> bay 2, top drawer.</div>
+					</div>
+				</div>
+				<div class="msg" style="margin-top: 12px">
+					<div class="msg-avatar is-ink" />
+					<div>
+						<div class="msg-meta"><span class="msg-author">sam</span><span class="msg-server">@other.example</span><span class="msg-time">15:05</span></div>
+						<div>on my way over from the other shop.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="grid-3">
+			<div class="card">
+				<svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><line x1="5" y1="15" x2="16" y2="5"></line></svg>
+				<h3>.card</h3>
+				<p>Surface-200, a 1px line border, a 16px corner. Icons are 1.5px line icons in accent teal.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Motion -->
+	<section class="sg-section" id="motion">
+		<div class="stack sg-head">
+			<span class="feature-kicker">Motion</span>
+			<h2 class="display display-md">Quick, and then out of the way.</h2>
+			<p class="lede">
+				Hover and focus take 120ms. Things that arrive take 240 to 420ms and ease out. No bounce, no spring. And when someone turns on
+				reduced motion, all of it stops. The rules live in <code class="sg-mono">src/styles/motion.css</code>.
+			</p>
+		</div>
+	</section>
+
+	<!-- Voice -->
+	<section class="sg-section" id="voice">
+		<div class="stack sg-head">
+			<span class="feature-kicker">Voice</span>
+			<h2 class="display display-md">Talk like someone in the channel.</h2>
+			<p class="lede">
+				Marketing pages get to be casual and a little snarky. The app and the docs stay plain: short words, sentence case, and say what to do
+				next. Nobody wants a joke in an error message.
+			</p>
+		</div>
+		<div class="sg-voice">
+			<div class="sg-quote"><span class="sg-do">DO</span><p>Can't reach foid.space. Your messages will send when it's back.</p></div>
+			<div class="sg-quote is-dont"><span class="sg-dont">DON'T</span><p>Oops! Something went wrong. Please try again later.</p></div>
+			<div class="sg-quote"><span class="sg-do">DO</span><p>Anyone can make a circle. No begging a server admin.</p></div>
+			<div class="sg-quote is-dont"><span class="sg-dont">DON'T</span><p>Leverage seamless community experiences across the federated ecosystem.</p></div>
+		</div>
+		<div class="stack" style="gap: var(--space-4); align-items: stretch">
+			<h3 class="sg-mono muted">One name for one thing</h3>
+			<div class="sg-table-wrap">
+				<table class="sg-table">
+					<thead><tr><th scope="col">Chord says</th><th scope="col">It means</th><th scope="col">Never say</th></tr></thead>
+					<tbody>
+						{names.map(([say, mean, never]) => <tr><td><strong>{say}</strong></td><td>{mean}</td><td>{never}</td></tr>)}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+</Base>

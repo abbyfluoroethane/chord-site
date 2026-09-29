@@ -1,0 +1,318 @@
+/* style-guide.css: styles used only on the style guide page. */
+
+.sg-section {
+	padding-block: var(--space-16);
+	border-top: 1px solid var(--line);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-8);
+}
+.sg-head {
+	max-width: 720px;
+	gap: var(--space-4);
+}
+.sg-head .lede {
+	font-size: 17px;
+	line-height: 26px;
+}
+.sg-toc {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-2);
+}
+.sg-toc a {
+	font-family: var(--font-mono);
+	font-size: 12px;
+	padding: 6px var(--space-3);
+	border: 1px solid var(--line);
+	border-radius: 999px;
+	color: var(--ink-muted);
+	text-decoration: none;
+}
+.sg-toc a:hover {
+	color: var(--ink);
+	border-color: var(--ink-muted);
+}
+
+/* ---------- logo ---------- */
+.sg-logos {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	gap: var(--space-6);
+}
+.sg-logo {
+	border: 1px solid var(--line);
+	border-radius: var(--radius-lg);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+.sg-logo-stage {
+	height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+}
+.sg-logo-stage.is-dark {
+	background: #111316;
+}
+.sg-logo-stage.is-light {
+	background: #f6f4ef;
+}
+.sg-logo-stage.is-brand {
+	background: var(--brand-soft);
+}
+.sg-logo-meta {
+	padding: var(--space-4);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: var(--space-4);
+	background: var(--surface-200);
+	border-top: 1px solid var(--line);
+	font-size: 14px;
+}
+.sg-logo-stage img.is-square {
+	width: 96px;
+	height: 96px;
+}
+.sg-logo-stage img.is-wide {
+	width: auto;
+	height: 56px;
+	max-width: 80%;
+}
+.sg-files {
+	display: flex;
+	gap: var(--space-3);
+	font-family: var(--font-mono);
+	font-size: 12px;
+}
+.sg-rules {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	gap: var(--space-6);
+}
+.sg-rule {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2);
+}
+.sg-rule h3 {
+	font-size: 15px;
+	font-weight: 600;
+	display: flex;
+	gap: var(--space-2);
+	align-items: center;
+}
+.sg-rule p {
+	color: var(--ink-muted);
+}
+.sg-do,
+.sg-dont {
+	font-family: var(--font-mono);
+	font-size: 11px;
+	letter-spacing: 0.06em;
+	padding: 2px 6px;
+	border-radius: var(--radius-sm);
+}
+.sg-do {
+	background: color-mix(in srgb, var(--online) 20%, transparent);
+	color: var(--online);
+}
+.sg-dont {
+	background: color-mix(in srgb, var(--danger) 20%, transparent);
+	color: var(--danger);
+}
+
+/* ---------- color ---------- */
+.sg-swatches {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: var(--space-4);
+}
+.sg-swatch {
+	border: 1px solid var(--line);
+	border-radius: var(--radius-lg);
+	overflow: hidden;
+	background: var(--surface-200);
+}
+.sg-chip {
+	height: 88px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+.sg-chip span {
+	display: block;
+}
+.sg-swatch-meta {
+	padding: var(--space-3) var(--space-4) var(--space-4);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-1);
+}
+.sg-swatch-meta code,
+.sg-mono {
+	font-family: var(--font-mono);
+	font-size: 12px;
+}
+.sg-swatch-meta .muted {
+	font-size: 13px;
+	line-height: 19px;
+}
+.sg-hex {
+	display: flex;
+	gap: var(--space-3);
+	font-family: var(--font-mono);
+	font-size: 11px;
+	color: var(--ink-muted);
+}
+.sg-legend {
+	font-size: 13px;
+	color: var(--ink-muted);
+}
+
+/* ---------- type ---------- */
+.sg-type {
+	display: flex;
+	flex-direction: column;
+}
+.sg-type-row {
+	display: grid;
+	grid-template-columns: 200px 1fr;
+	gap: var(--space-6);
+	align-items: baseline;
+	padding-block: var(--space-6);
+	border-bottom: 1px solid var(--line);
+}
+.sg-type-row:first-child {
+	padding-top: 0;
+}
+.sg-type-label {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-1);
+}
+.sg-type-label strong {
+	font-weight: 600;
+}
+.sg-type-label span {
+	font-family: var(--font-mono);
+	font-size: 12px;
+	color: var(--ink-muted);
+}
+@media (max-width: 720px) {
+	.sg-type-row {
+		grid-template-columns: 1fr;
+		gap: var(--space-2);
+	}
+}
+
+/* ---------- spacing and radius ---------- */
+.sg-scales {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+	gap: var(--space-16);
+}
+.sg-scale {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-3);
+}
+.sg-scale-row {
+	display: grid;
+	grid-template-columns: 96px 48px minmax(0, 1fr);
+	gap: var(--space-4);
+	align-items: center;
+	font-size: 13px;
+}
+.sg-bar {
+	max-width: 100%;
+	height: 12px;
+	border-radius: 2px;
+	background: var(--brand);
+}
+.sg-radius {
+	width: 56px;
+	height: 56px;
+	border: 2px solid var(--brand);
+	background: var(--brand-soft);
+}
+
+/* ---------- components ---------- */
+.sg-demo {
+	border: 1px solid var(--line);
+	border-radius: var(--radius-lg);
+	padding: var(--space-8);
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-6);
+	align-items: center;
+	background: var(--surface-200);
+}
+.sg-demo-label {
+	width: 100%;
+	font-family: var(--font-mono);
+	font-size: 12px;
+	color: var(--ink-muted);
+}
+.sg-presence {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-6);
+}
+.sg-presence span {
+	display: inline-flex;
+	gap: var(--space-2);
+	align-items: center;
+	font-size: 14px;
+}
+
+/* ---------- voice ---------- */
+.sg-voice {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: var(--space-6);
+}
+.sg-quote {
+	border: 1px solid var(--line);
+	border-radius: var(--radius-lg);
+	padding: var(--space-6);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-3);
+	background: var(--surface-200);
+}
+.sg-quote p {
+	font-size: 16px;
+	line-height: 24px;
+}
+.sg-quote.is-dont p {
+	color: var(--ink-muted);
+	text-decoration: line-through;
+	text-decoration-color: color-mix(in srgb, var(--danger) 60%, transparent);
+}
+.sg-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 15px;
+}
+.sg-table th,
+.sg-table td {
+	text-align: left;
+	padding: 12px var(--space-4);
+	border-bottom: 1px solid var(--line);
+}
+.sg-table thead th {
+	font-size: 12px;
+	font-weight: 500;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--ink-muted);
+}
+.sg-table td:last-child {
+	color: var(--ink-muted);
+}
+.sg-table-wrap {
+	overflow-x: auto;
+}

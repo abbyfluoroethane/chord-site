@@ -32,6 +32,17 @@ Before the first deploy, turn on Pages once:
 
 The tokens come from the Chord design system. Change a color in the `:root` block of `chord.css`, not in markup. Add `data-theme="light"` to an element to show the light theme.
 
+## Logo files
+
+`public/brand/` holds the logo pack: SVG and PNG for each setup, plus `chord-brand.zip`. The style guide page links to them.
+
+To rebuild the pack after a logo or color change:
+
+1. Get the Bricolage Grotesque 700 font as a `.woff` file (for example from the `@fontsource/bricolage-grotesque` package).
+2. Run `python3 scripts/build-logos.py path/to/bricolage-grotesque-latin-700-normal.woff`.
+
+The script needs Python with `fonttools` and `playwright`. It turns the wordmark into outlines, so the SVGs do not need the font.
+
 ## Links and the base path
 
 The site lives under `/chord-site/`, so a hard-coded link such as `/docs/` breaks. Use the `url()` helper from `src/lib/url.ts`:
