@@ -85,18 +85,34 @@ for suf, c in THEMES.items():
     body, w = wordmark(c["text"], 48, dx=0, baseline=ymax * s)
     files[f"chord-wordmark{suf}.svg"] = svg(w, h, body)
 
-# Lockup: mark + wordmark. Text baseline sits on the ring's outer bottom (y = 56),
-# ascender reaches the ring's outer top (y = 8). Gap = a quarter of the mark (16).
+# Lockup: mark + wordmark, aligned by eye rather than by the font box.
+#   1. Vertical center: the middle of the x-height band sits on the ring's center (y = 32).
+#      Lowercase text reads as centered on its x-height, not on its ascenders.
+#   2. Size: the tops of "h" and "d" line up with the top of the upper node dot (y = 6.3),
+#      the highest point of the mark. This makes the x-height about 62% of the ring.
+#   3. Gap: the space from the ring's outer edge to the ink of "c" is half the x-height.
+#   4. The viewBox is cropped to the ink, so the file has no hidden padding.
+XH = font["OS/2"].sxHeight
+RING_CENTER, DOT_TOP, RING_RIGHT, RING_BOTTOM, DOT_LEFT = 32, 11.3 - 5, 56, 56, 11.3 - 5
+s_lock = (RING_CENTER - DOT_TOP) / (asc - XH / 2)          # px per font unit
+baseline = RING_CENTER + (XH / 2) * s_lock
+c_left = BoundsPen(gs); gs[cmap[ord("c")]].draw(c_left)
+d_right = BoundsPen(gs); gs[cmap[ord("d")]].draw(d_right)
+gap = (XH * s_lock) / 2
+text_x = RING_RIGHT + gap - c_left.bounds[0] * s_lock
+ink_right = text_x + (parts[-1][1] + d_right.bounds[2]) * s_lock
+LOCKUP_GEOMETRY = dict(scale=s_lock, baseline=baseline, text_x=text_x, gap=gap)
 for suf, c in THEMES.items():
-    s = 48 / asc
-    body_w, w = wordmark(c["text"], 48, dx=64 + 16, baseline=56)
-    below = -ymin * s  # descender room (none for "chord", but kept for safety)
-    h = max(64, 56 + below)
-    files[f"chord-lockup{suf}.svg"] = svg(64 + 16 + w, h, mark(c) + body_w)
+    body_w, _ = wordmark(c["text"], asc * s_lock, dx=text_x, baseline=baseline)
+    x0, y0 = DOT_LEFT, DOT_TOP
+    w, h = ink_right - x0, RING_BOTTOM - y0
+    inner = f'<g transform="translate({-x0:.3f} {-y0:.3f})">' + mark(c) + body_w + "</g>"
+    files[f"chord-lockup{suf}.svg"] = svg(w, h, inner)
 
 for name, text in files.items():
     (OUT / name).write_text(text)
 print("wrote", len(files), "SVGs")
+print("lockup geometry (mark units):", {k: round(v, 2) for k, v in LOCKUP_GEOMETRY.items()})
 
 # ---- PNGs, rendered by Chromium ----
 from playwright.async_api import async_playwright

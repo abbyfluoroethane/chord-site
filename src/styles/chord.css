@@ -156,9 +156,14 @@ a:hover {
 
 /* ---------- wordmark ---------- */
 .wordmark {
+	/* Optical alignment, the same as the lockup files (scripts/build-logos.py):
+	   with the mark at 32px and the text at 28px, line-height 1, the top edges line up.
+	   That puts the middle of the x-height on the ring's center and the ascenders
+	   level with the top node dot. The small gap leaves half an x-height of space
+	   between the ring and the "c". */
 	display: flex;
-	align-items: center;
-	gap: 10px;
+	align-items: flex-start;
+	gap: 2.5px;
 	text-decoration: none;
 	color: var(--ink);
 }
