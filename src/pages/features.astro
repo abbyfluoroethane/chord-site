@@ -58,7 +58,14 @@ const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/
 				A circle holds the channels for one group: your crew, your team, your friends. Switch circles from the rail. Unread counts show you
 				where the conversation went while you were away.
 			</p>
-			<div class="xep"><a href={xep('0045', 'Multi-User Chat').href}>{xep('0045', 'Multi-User Chat').label}</a></div>
+			<p class="lede">
+				Anyone can make a circle. You do not need to be the server admin. Circles are XMPP spaces, so other clients that support spaces show
+				the same groups.
+			</p>
+			<div class="xep">
+				<a href={xep('0503', 'Server-side spaces').href}>{xep('0503', 'Server-side spaces').label}</a>
+				<a href={xep('0045', 'Multi-User Chat').href}>{xep('0045', 'Multi-User Chat').label}</a>
+			</div>
 		</div>
 		<div class="feature-visual">
 			<div class="vis" role="img" aria-label="A list of circles with unread counts">

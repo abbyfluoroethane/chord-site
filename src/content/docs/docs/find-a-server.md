@@ -9,7 +9,8 @@ Your Chord account lives on an XMPP server. Any server that follows the XMPP sta
 
 - **Who runs it.** A person or group you trust keeps your messages.
 - **Registration.** Some servers let you sign up in the client. Others use a web form.
-- **Group chat.** Circles and channels need a MUC service on the server.
+- **Group chat.** Channels need a MUC service on the server.
+- **Spaces.** Circles need a PubSub service that can host XEP-0503 spaces. [TODO: list servers tested with Chord circles]
 - **File upload.** Images and files need HTTP file upload on the server.
 
 ## Public servers

@@ -17,6 +17,7 @@ This page is an outline. Replace each `[TODO]` with tested steps.
 
 1. [TODO: install the XMPP server]
 2. [TODO: set the domain and TLS certificates]
-3. [TODO: turn on the MUC service for circles and channels]
-4. [TODO: turn on HTTP file upload]
-5. [TODO: make your first account and sign in with Chord]
+3. [TODO: turn on the MUC service for channels]
+4. [TODO: turn on a PubSub service for circles (XEP-0503 spaces)]
+5. [TODO: turn on HTTP file upload]
+6. [TODO: make your first account and sign in with Chord]
