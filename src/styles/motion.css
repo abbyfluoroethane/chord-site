@@ -86,27 +86,31 @@
 	animation-delay: 180ms;
 }
 
-/* The app mock: the window arrives, then the messages come in like a live chat. */
+/* The app mock: the window arrives, then the chat plays like a live channel.
+   Each new message waits for its --at time (set in AppMock.astro). A typing line shows
+   first. Then the message slot grows from zero height and pushes older messages up. */
 .hero .mock {
 	animation: fade var(--dur-slow) var(--ease-out) 150ms both;
 }
-.hero .mock .msg {
-	animation: rise var(--dur-med) var(--ease-out) both;
+.mock.is-live .msg-slot.is-new {
+	animation: slot-open 320ms var(--ease-out) var(--at) both;
 }
-.hero .mock .msg:nth-child(1) {
-	animation-delay: 600ms;
-}
-.hero .mock .msg:nth-child(2) {
-	animation-delay: 1300ms;
-}
-.hero .mock .msg:nth-child(3) {
-	animation-delay: 2000ms;
+.mock.is-live .msg-slot.is-new .msg {
+	animation: fade 260ms var(--ease-out) calc(var(--at) + 80ms) both;
 }
 /* The mention lands a moment after its message, so the highlight reads as a ping. */
-.hero .mock .msg.is-mention {
+.mock.is-live .msg-slot.is-new .msg.is-mention {
 	animation:
-		rise var(--dur-med) var(--ease-out) 1300ms both,
-		mention-ping 900ms var(--ease-out) 1450ms both;
+		fade 260ms var(--ease-out) calc(var(--at) + 80ms) both,
+		mention-ping 900ms var(--ease-out) calc(var(--at) + 200ms) both;
+}
+@keyframes slot-open {
+	from {
+		grid-template-rows: 0fr;
+	}
+	to {
+		grid-template-rows: 1fr;
+	}
 }
 @keyframes mention-ping {
 	from {
@@ -117,6 +121,44 @@
 	}
 	to {
 		background-color: var(--brand-soft);
+	}
+}
+
+/* Typing indicator: each line shows from --from for --for, then gives way to the message. */
+.mock.is-live .typing {
+	animation: typing-show var(--for) linear var(--from) both;
+}
+@keyframes typing-show {
+	0% {
+		opacity: 0;
+	}
+	15%,
+	85% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+.mock.is-live .typing-dots i {
+	animation: typing-dot 900ms ease-in-out infinite;
+}
+.mock.is-live .typing-dots i:nth-child(2) {
+	animation-delay: 150ms;
+}
+.mock.is-live .typing-dots i:nth-child(3) {
+	animation-delay: 300ms;
+}
+@keyframes typing-dot {
+	0%,
+	60%,
+	100% {
+		opacity: 0.35;
+		transform: none;
+	}
+	30% {
+		opacity: 1;
+		transform: translateY(-2px);
 	}
 }
 

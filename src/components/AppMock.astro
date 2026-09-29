@@ -1,19 +1,59 @@
 ---
-// A static picture of the Chord client. Replace it with a real screenshot when the client exists.
+// A picture of the Chord client. Replace it with a real screenshot when the client exists.
+// live: messages arrive one at a time, push older ones up, and show a typing indicator first.
+interface Props {
+	live?: boolean;
+}
+const { live = false } = Astro.props;
+
+type Msg = {
+	author: string;
+	time: string;
+	avatar?: string;
+	body: string;
+	mention?: string;
+	server?: string;
+	/** Seconds after page load when the message lands. Absent = already in the history. */
+	at?: number;
+};
+
 const channels = [
 	{ name: 'general' },
 	{ name: 'launch-ops', active: true },
 	{ name: 'parts' },
 	{ name: 'off-topic' },
 ];
-const messages = [
+
+// The static mock (features page) shows three messages.
+const staticMessages: Msg[] = [
 	{ author: 'mika', time: '15:02', avatar: 'is-accent', body: 'static fire moved to 14:00. who has the torque wrench?' },
 	{ author: 'jo', time: '15:04', avatar: 'is-danger', mention: '@rin', body: 'bay 2, top drawer.' },
 	{ author: 'sam', server: '@other.example', time: '15:05', avatar: 'is-ink', body: 'on my way over from the other shop.' },
 ];
+
+// The live mock (homepage) starts with history, then new messages arrive and push it up.
+const liveMessages: Msg[] = [
+	{ author: 'kai', time: '14:40', body: "cleanroom's clear. garb up before you come in" },
+	{ author: 'rin', time: '14:58', avatar: 'is-brand', body: 'ok who took the torque wrench' },
+	{ author: 'mika', time: '15:02', avatar: 'is-accent', body: 'static fire moved to 14:00 tomorrow btw', at: 1.4 },
+	{ author: 'jo', time: '15:04', avatar: 'is-danger', mention: '@rin', body: 'bay 2, top drawer.', at: 3.0 },
+	{ author: 'sam', server: '@other.example', time: '15:05', avatar: 'is-ink', body: 'on my way over from the other shop.', at: 4.6 },
+	{ author: 'rin', time: '15:05', avatar: 'is-brand', body: "you're a lifesaver", at: 5.9 },
+];
+
+// Each typing indicator shows for a moment and ends when that person's message lands.
+const typing = liveMessages
+	.filter((m) => m.at !== undefined)
+	.map((m) => ({ who: m.author, from: m.at! - 0.9, to: m.at! }));
+
+const messages = live ? liveMessages : staticMessages;
 ---
 
-<div class="mock" role="img" aria-label="The Chord app: circle rail, channel list, and a channel with messages">
+<div
+	class:list={['mock', { 'is-live': live }]}
+	role="img"
+	aria-label="The Chord app: circle rail, channel list, and a channel with messages"
+>
 	<div class="mock-rail">
 		<div class="mock-circle is-home">
 			<svg width="24" height="24" viewBox="0 0 64 64" fill="none" stroke-width="5" stroke-linecap="round" aria-hidden="true">
@@ -40,22 +80,42 @@ const messages = [
 		<div class="mock-messages">
 			{
 				messages.map((m) => (
-					<div class:list={['msg', { 'is-mention': m.mention }]}>
-						<div class:list={['msg-avatar', m.avatar]} />
-						<div>
-							<div class="msg-meta">
-								<span class="msg-author">{m.author}</span>
-								{m.server && <span class="msg-server">{m.server}</span>}
-								<span class="msg-time">{m.time}</span>
-							</div>
-							<div>
-								{m.mention && <span class="mention">{m.mention}</span>} {m.body}
+					<div class:list={['msg-slot', { 'is-new': m.at !== undefined }]} style={m.at !== undefined ? `--at: ${m.at}s` : undefined}>
+						<div class="msg-slot-inner">
+							<div class:list={['msg', { 'is-mention': m.mention }]}>
+								<div class:list={['msg-avatar', m.avatar]} />
+								<div>
+									<div class="msg-meta">
+										<span class="msg-author">{m.author}</span>
+										{m.server && <span class="msg-server">{m.server}</span>}
+										<span class="msg-time">{m.time}</span>
+									</div>
+									<div>
+										{m.mention && <span class="mention">{m.mention}</span>} {m.body}
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				))
 			}
 		</div>
+		{
+			live && (
+				<div class="mock-typing" aria-hidden="true">
+					{typing.map((t) => (
+						<span class="typing" style={`--from: ${t.from}s; --for: ${(t.to - t.from).toFixed(2)}s`}>
+							<span class="typing-dots">
+								<i />
+								<i />
+								<i />
+							</span>
+							<strong>{t.who}</strong> is typing
+						</span>
+					))}
+				</div>
+			)
+		}
 		<div class="mock-composer">Message #launch-ops</div>
 	</div>
 </div>
