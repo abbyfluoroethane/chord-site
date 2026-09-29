@@ -21,7 +21,7 @@ const nodeClass = { you: 'fed-node-you', other: 'fed-node-remote' } as Record<st
 	<circle class="fed-ring" cx="180" cy="150" r="120"></circle>
 	{
 		links.map(([a, b, extra]) => (
-			<line class:list={['fed-link', extra]} x1={nodes[a].x} y1={nodes[a].y} x2={nodes[b].x} y2={nodes[b].y} />
+			<line class:list={['fed-link', extra]} pathLength="1" x1={nodes[a].x} y1={nodes[a].y} x2={nodes[b].x} y2={nodes[b].y} />
 		))
 	}
 	{

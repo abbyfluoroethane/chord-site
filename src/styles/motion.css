@@ -1,0 +1,191 @@
+/* motion.css: all motion on the site.
+   Brand rule: short and functional. 120ms for hover and focus, 200 to 400ms for things that arrive. No bounce.
+   Everything here turns off for people who ask for reduced motion (the block at the end). */
+
+:root {
+	--ease-out: cubic-bezier(0.2, 0, 0, 1);
+	--dur-fast: 120ms;
+	--dur-med: 240ms;
+	--dur-slow: 420ms;
+}
+
+/* ---------- hover and focus ---------- */
+.btn,
+.topbar-links a,
+.site-footer a,
+.xep a,
+.card,
+.mock-item,
+.vis-row {
+	transition:
+		background-color var(--dur-fast) var(--ease-out),
+		border-color var(--dur-fast) var(--ease-out),
+		color var(--dur-fast) var(--ease-out),
+		filter var(--dur-fast) var(--ease-out),
+		transform var(--dur-fast) var(--ease-out);
+}
+.btn:active {
+	transform: translateY(1px);
+}
+.card:hover {
+	border-color: var(--ink-muted);
+}
+
+/* The mark: the chord redraws when you point at the wordmark. */
+.wordmark .mark-chord {
+	stroke-dasharray: 40;
+	stroke-dashoffset: 0;
+	transition: stroke-dashoffset var(--dur-slow) var(--ease-out);
+}
+.wordmark:hover .mark-chord {
+	animation: chord-redraw var(--dur-slow) var(--ease-out);
+}
+@keyframes chord-redraw {
+	from {
+		stroke-dashoffset: 40;
+	}
+	to {
+		stroke-dashoffset: 0;
+	}
+}
+
+/* ---------- arrive on load ---------- */
+@keyframes rise {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+@keyframes fade {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+/* Hero copy, one line after another. */
+.hero-copy > *,
+.page-head > * {
+	animation: rise var(--dur-slow) var(--ease-out) both;
+}
+.hero-copy > :nth-child(2),
+.page-head > :nth-child(2) {
+	animation-delay: 60ms;
+}
+.hero-copy > :nth-child(3),
+.page-head > :nth-child(3) {
+	animation-delay: 120ms;
+}
+.hero-copy > :nth-child(4) {
+	animation-delay: 180ms;
+}
+
+/* The app mock: the window arrives, then the messages come in like a live chat. */
+.hero .mock {
+	animation: fade var(--dur-slow) var(--ease-out) 150ms both;
+}
+.hero .mock .msg {
+	animation: rise var(--dur-med) var(--ease-out) both;
+}
+.hero .mock .msg:nth-child(1) {
+	animation-delay: 600ms;
+}
+.hero .mock .msg:nth-child(2) {
+	animation-delay: 1300ms;
+}
+.hero .mock .msg:nth-child(3) {
+	animation-delay: 2000ms;
+}
+/* The mention lands a moment after its message, so the highlight reads as a ping. */
+.hero .mock .msg.is-mention {
+	animation:
+		rise var(--dur-med) var(--ease-out) 1300ms both,
+		mention-ping 900ms var(--ease-out) 1450ms both;
+}
+@keyframes mention-ping {
+	from {
+		background-color: transparent;
+	}
+	40% {
+		background-color: color-mix(in srgb, var(--brand) 35%, var(--brand-soft));
+	}
+	to {
+		background-color: var(--brand-soft);
+	}
+}
+
+/* ---------- arrive on scroll (browsers with scroll-driven animations) ----------
+   Note: animation-timeline sits in its own "html :is(...)" rule on purpose. The CSS minifier
+   merges same-selector rules into the animation shorthand, and browsers drop a timeline
+   written inside the shorthand. */
+@supports (animation-timeline: view()) {
+	.feature-copy,
+	.feature-visual,
+	.familiar-head,
+	.familiar-body,
+	.grid-3 > .card,
+	.panel,
+	.compare tbody tr,
+	.cta {
+		animation: rise linear both;
+		animation-range: entry 0% entry 60%;
+	}
+	html :is(.feature-copy, .feature-visual, .familiar-head, .familiar-body, .grid-3 > .card, .panel, .compare tbody tr, .cta) {
+		animation-timeline: view();
+	}
+	.feature-visual {
+		animation-range: entry 10% entry 70%;
+	}
+	.grid-3 > .card:nth-child(2) {
+		animation-range: entry 8% entry 68%;
+	}
+	.grid-3 > .card:nth-child(3) {
+		animation-range: entry 16% entry 76%;
+	}
+
+	/* The federation diagram: each chord draws itself between two servers.
+	   SVG shapes cannot be their own view timeline, so the lines follow the SVG's timeline. */
+	.fed {
+		view-timeline: --fed block;
+	}
+	.fed .fed-link {
+		stroke-dasharray: 1;
+		animation: draw linear both;
+		animation-range: entry 15% entry 85%;
+	}
+	.fed .fed-link-you,
+	.fed .fed-link-remote {
+		animation-range: entry 35% entry 100%;
+	}
+	.fed .fed-node {
+		animation: fade linear both;
+		animation-range: entry 20% entry 50%;
+	}
+	html :is(.fed .fed-link, .fed .fed-node) {
+		animation-timeline: --fed;
+	}
+	@keyframes draw {
+		from {
+			stroke-dashoffset: 1;
+		}
+		to {
+			stroke-dashoffset: 0;
+		}
+	}
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation: none !important;
+		transition: none !important;
+	}
+}
