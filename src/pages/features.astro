@@ -9,14 +9,14 @@ import '../styles/features.css';
 const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/xep-${n}.html`, label: `XEP-${n} ${label}` });
 ---
 
-<Base title="Features: Chord" description="Chord looks like the chat app you already use. The difference is that nobody owns the network under it.">
+<Base title="Features: Chord" description="Chord looks like the app you already use, but nobody owns the network.">
 	<section class="stack page-head">
-		<h1 class="display page-title">You already know how to use it.</h1>
+		<h1 class="display page-title">Chord looks like the app you already use, but <span class="hl">nobody owns the network.</span></h1>
 		<p class="lede">
-			Circles on the left. Channels next to them. Messages in the middle. If you have used a chat app in the last ten years, you do not
-			need a tour. The one new part is the network under it, and nobody owns that.
+			Circles on the left, channels next to them, messages in the middle. If you've touched a chat app in the last decade, you don't need
+			a tour. The only new thing is the network underneath, and that part's nobody's.
 		</p>
-		<p class="status-note"><strong>In development.</strong> This page lists what Chord is built to do.</p>
+		<p class="status-note"><strong>Still cooking.</strong> This is what Chord's being built to do.</p>
 	</section>
 
 	<!-- The familiar layout -->
@@ -25,42 +25,42 @@ const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/
 			<span class="feature-kicker">The layout</span>
 			<h2 class="display display-md">Your hands already know where everything is.</h2>
 			<p class="lede">
-				We did not reinvent chat. We moved it to a network where you keep your account. Your friends can make the switch on a Friday night
-				and be in the right channel by Saturday.
+				We didn't reinvent chat. We just moved it somewhere you actually keep your account. Your friends could switch on a Friday night and
+				be arguing in the right channel by Saturday.
 			</p>
 		</div>
 		<div class="familiar-body">
 			<AppMock />
 			<ol class="layout-legend">
 				<li>
-					<div><strong>The rail</strong><span>Every circle you belong to, one icon each, down the left edge. Right where you look for it.</span></div>
+					<div><strong>The rail</strong><span>Every circle you're in, one icon each, down the left edge. Right where your eyes already go.</span></div>
 				</li>
 				<li>
-					<div><strong>The channel list</strong><span>Channels for the circle you are in, with your DMs below them.</span></div>
+					<div><strong>The channel list</strong><span>Channels for whatever circle you're in, DMs right underneath. You know the drill.</span></div>
 				</li>
 				<li>
-					<div><strong>The conversation</strong><span>Messages grouped by person. A mention of your name lights up so you do not miss it.</span></div>
+					<div><strong>The conversation</strong><span>Messages grouped by person. Get mentioned and it lights up, so you can't pretend you missed it.</span></div>
 				</li>
 				<li>
-					<div><strong>The composer</strong><span>Type, press Enter, done. There is nothing to learn.</span></div>
+					<div><strong>The composer</strong><span>Type, hit Enter, done. Nothing to learn. Sorry.</span></div>
 				</li>
 			</ol>
 		</div>
-		<p class="aside-line">We call them circles, not servers. A server in Chord is the computer that holds your account, and it can be yours.</p>
+		<p class="aside-line">We call them circles, not servers. In Chord, a server's just the computer holding your account, and it can be yours.</p>
 	</section>
 
 	<!-- Circles and channels -->
 	<section class="feature" id="circles">
 		<div class="stack feature-copy">
 			<span class="feature-kicker">Circles and channels</span>
-			<h2 class="display display-md">A circle for every group you are in.</h2>
+			<h2 class="display display-md">A circle for every group you're in.</h2>
 			<p class="lede">
-				A circle holds the channels for one group: your crew, your team, your friends. Switch circles from the rail. Unread counts show you
-				where the conversation went while you were away.
+				Your crew, your team, the group chat that's mostly memes. Each one gets a circle with its own channels. Hop between them from the
+				rail, and unread counts tell you where things went sideways while you were gone.
 			</p>
 			<p class="lede">
-				Anyone can make a circle. You do not need to be the server admin. Circles are XMPP spaces, so other clients that support spaces show
-				the same groups.
+				Anyone can make a circle. No begging a server admin. Circles are XMPP spaces, so other clients that speak spaces see the same
+				groups.
 			</p>
 			<div class="xep">
 				<a href={xep('0503', 'Server-side spaces').href}>{xep('0503', 'Server-side spaces').label}</a>
@@ -81,10 +81,10 @@ const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/
 	<section class="feature" id="dms">
 		<div class="stack feature-copy">
 			<span class="feature-kicker">DMs and presence</span>
-			<h2 class="display display-md">See who is around before you ask.</h2>
+			<h2 class="display display-md">See who's around before you ask.</h2>
 			<p class="lede">
-				Direct messages sit under your channels, one click away. Each person shows a status. Chord marks each status with a shape as well as a
-				color, so you can read it even if you cannot tell the colors apart.
+				DMs live right under your channels. Everyone's got a status, and every status gets a shape as well as a color, so you can read it
+				even if red and green look the same to you.
 			</p>
 		</div>
 		<div class="feature-visual">
@@ -102,10 +102,10 @@ const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/
 	<section class="feature" id="devices">
 		<div class="stack feature-copy">
 			<span class="feature-kicker">History on every device</span>
-			<h2 class="display display-md">Pick up the conversation where you left it.</h2>
+			<h2 class="display display-md">Pick up right where you left off.</h2>
 			<p class="lede">
-				Your server keeps your message history. Sign in on your laptop, your phone, and your desktop, and each one shows the same
-				conversation.
+				Your server keeps your history. Laptop, phone, desktop: sign in on all three and they'll show the same conversation. No more "check
+				your other device."
 			</p>
 			<div class="xep">
 				<a href={xep('0313', 'Message Archive').href}>{xep('0313', 'Message Archive').label}</a>
@@ -127,10 +127,10 @@ const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/
 	<section class="feature" id="files">
 		<div class="stack feature-copy">
 			<span class="feature-kicker">Files and images</span>
-			<h2 class="display display-md">Drop it in the channel.</h2>
+			<h2 class="display display-md">Just drop it in the channel.</h2>
 			<p class="lede">
-				Share photos, screenshots, and files in any channel or DM. Your server stores them, so the size limit is whatever your server
-				allows.
+				Photos, screenshots, that PDF someone keeps asking for. Your server stores them, so the size limit's up to your server, not a
+				subscription tier.
 			</p>
 			<div class="xep"><a href={xep('0363', 'HTTP File Upload').href}>{xep('0363', 'HTTP File Upload').label}</a></div>
 		</div>
@@ -149,10 +149,10 @@ const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/
 	<section class="feature" id="federation">
 		<div class="stack feature-copy">
 			<span class="feature-kicker">One address, any server</span>
-			<h2 class="display display-md">Talk to people on other servers.</h2>
+			<h2 class="display display-md">Talk to people on other servers. Yes, really.</h2>
 			<p class="lede">
-				Your address looks like an email address: you@yourserver.org. People on other XMPP servers can join your circles and send you DMs.
-				Chord shows their server next to their name, so you always know where a message came from.
+				Your address looks like an email: you@yourserver.org. People on other XMPP servers can join your circles and DM you, and Chord shows
+				their server next to their name so you always know where a message came from.
 			</p>
 			<div class="vis" role="img" aria-label="A message from a person on another server">
 				<div class="vis-row"><span class="vis-avatar is-ink"></span><span class="grow"><strong>sam</strong> <span class="vis-server">@other.example</span><br />on my way over from the other shop.</span></div>
@@ -169,14 +169,14 @@ const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/
 		<div class="compare-wrap">
 			<table class="compare">
 				<thead>
-					<tr><th scope="col"></th><th scope="col">Chord</th><th scope="col">The app you are thinking of</th></tr>
+					<tr><th scope="col"></th><th scope="col">Chord</th><th scope="col">The app you're thinking of</th></tr>
 				</thead>
 				<tbody>
 					<tr><th scope="row">The layout</th><td class="is-chord">Circles, channels, DMs</td><td>Also that</td></tr>
 					<tr><th scope="row">Who runs the servers</th><td class="is-chord">You, a friend, or any XMPP host</td><td>One company</td></tr>
 					<tr><th scope="row">Your account</th><td class="is-chord">An address on a server you pick</td><td>A row in their database</td></tr>
 					<tr><th scope="row">Other apps</th><td class="is-chord">Any XMPP client can sign in to your account</td><td>Only theirs</td></tr>
-					<tr><th scope="row">If the rules change</th><td class="is-chord">Move to another server, or run your own</td><td>Agree, or leave your circles behind</td></tr>
+					<tr><th scope="row">If the rules change</th><td class="is-chord">Pack up and move servers, or run your own</td><td>Click Agree, or leave your circles behind</td></tr>
 				</tbody>
 			</table>
 		</div>

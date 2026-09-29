@@ -2,11 +2,14 @@
 
 .page-head {
 	padding-block: var(--space-24) var(--space-16);
-	max-width: 760px;
+	max-width: 1000px;
 	gap: 20px;
 }
+.page-head .lede {
+	max-width: 720px;
+}
 .page-title {
-	font-size: clamp(48px, 6vw, 72px);
+	font-size: clamp(40px, 5vw, 64px);
 }
 
 .status-note {
