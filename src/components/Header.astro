@@ -4,10 +4,6 @@ import { url } from '../lib/url';
 
 const links = [
 	{ href: url('features/'), label: 'Features' },
-	{ href: url('docs/find-a-server/'), label: 'Find a server' },
-	{ href: url('docs/self-host/'), label: 'Self-host' },
-	{ href: url('docs/'), label: 'Docs' },
-	{ href: url('style-guide/'), label: 'Style guide' },
 ];
 ---
 
@@ -21,8 +17,6 @@ const links = [
 			{links.map((link) => <a href={link.href}>{link.label}</a>)}
 		</nav>
 		<div class="row">
-			<!-- TODO: point these at the web client and the release page when they exist. -->
-			<a href={url('docs/getting-started/')} class="btn">Open in browser</a>
 			<a href={url('#get-chord')} class="btn btn-primary">Download</a>
 		</div>
 	</div>

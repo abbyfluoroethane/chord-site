@@ -1,4 +1,5 @@
 ---
+draft: true
 title: Find a server
 description: Pick a public XMPP server for your Chord account.
 ---

@@ -12,26 +12,9 @@
 	font-size: clamp(40px, 5vw, 64px);
 }
 
-.status-note {
-	display: flex;
-	gap: var(--space-3);
-	align-items: baseline;
-	padding: var(--space-3) var(--space-4);
-	border: 1px solid var(--line);
-	border-radius: var(--radius-md);
-	background: var(--surface-200);
-	color: var(--ink-muted);
-	font-size: 14px;
-}
-.status-note strong {
-	color: var(--ink);
-	font-weight: 600;
-}
-
 /* ---------- feature rows ---------- */
 .feature {
 	padding-block: var(--space-16);
-	border-top: 1px solid var(--line);
 	display: flex;
 	flex-wrap: wrap;
 	gap: var(--space-16);
@@ -340,7 +323,6 @@
 /* ---------- familiar layout ---------- */
 .familiar {
 	padding-block: var(--space-16);
-	border-top: 1px solid var(--line);
 	display: flex;
 	flex-direction: column;
 	gap: var(--space-8);
@@ -396,4 +378,47 @@
 	font-family: var(--font-mono);
 	font-size: 13px;
 	color: var(--ink-muted);
+}
+
+/* A single message with a photo, for the Photos, links, and GIFs section. */
+.photo-msg {
+	max-width: 480px;
+	padding: var(--space-4) 0;
+}
+.photo-msg .msg-body {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 0;
+}
+.photo-msg-img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	margin-top: var(--space-2);
+	border: 1px solid var(--line);
+	border-radius: var(--radius-lg);
+}
+
+/* ---------- small screens ---------- */
+@media (max-width: 720px) {
+	.page-head {
+		padding-block: var(--space-8);
+	}
+	.feature,
+	.familiar {
+		padding-block: var(--space-8);
+		gap: var(--space-6);
+	}
+	.feature-copy,
+	.feature-visual {
+		flex-basis: 100%;
+		min-width: 0;
+	}
+	.familiar-body {
+		gap: var(--space-6);
+	}
+	.cta {
+		margin-top: var(--space-8);
+	}
 }

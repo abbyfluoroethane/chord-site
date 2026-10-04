@@ -48,8 +48,18 @@ The script needs Python with `fonttools` and `playwright`. It turns the wordmark
 The site lives at the root of its own domain, so `/docs/` works. Still use the `url()` helper from `src/lib/url.ts`, so a link keeps working if the site ever moves under a path again:
 
 ```astro
-<a href={url('docs/self-host/')}>Self-host</a>
+<a href={url('features/')}>Features</a>
 ```
+
+## Hidden pages
+
+For now the docs, Find a server, Self-host and the style guide are hidden. Nothing links to them and the build does not publish them.
+
+- The docs pages in `src/content/docs/docs/` have `draft: true`. Remove that line from a page to publish it.
+- The style guide is `src/pages/_style-guide.astro`. The leading underscore keeps Astro from building it. Rename it to `style-guide.astro` to bring it back.
+- The nav, footer, and homepage links are removed. `git log` has them (the commit that hides the docs).
+- `sidebar` in `astro.config.mjs` is empty. Restore the four docs entries when you publish them.
+- The logo pack in `public/brand/` is still served, since it is a plain file.
 
 ## Domain
 

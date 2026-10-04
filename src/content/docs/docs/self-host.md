@@ -1,4 +1,5 @@
 ---
+draft: true
 title: Self-host
 description: Run your own XMPP server for your spaces.
 ---

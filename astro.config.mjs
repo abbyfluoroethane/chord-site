@@ -21,17 +21,10 @@ export default defineConfig({
 			social: [
 				{ icon: 'github', label: 'GitHub', href: 'https://github.com/abbyfluoroethane/chord-site' },
 			],
-			sidebar: [
-				{
-					label: 'Docs',
-					items: [
-						{ label: 'Overview', slug: 'docs' },
-						{ label: 'Getting started', slug: 'docs/getting-started' },
-						{ label: 'Find a server', slug: 'docs/find-a-server' },
-						{ label: 'Self-host', slug: 'docs/self-host' },
-					],
-				},
-			],
+			// The docs are hidden for now: every page in src/content/docs has draft: true, so the build skips
+			// them. To bring them back, remove the draft lines, put the links back in the header, footer and
+			// homepage, and restore the sidebar from git history.
+			sidebar: [],
 		}),
 	],
 });

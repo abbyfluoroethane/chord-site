@@ -147,3 +147,52 @@
 	margin-block: var(--space-4);
 	max-width: 480px;
 }
+
+/* ---------- small screens ---------- */
+@media (max-width: 720px) {
+	.showcase {
+		padding-block: var(--space-8);
+		gap: var(--space-6);
+	}
+	/* Two shots side by side do not fit. Stack them, and keep the rows inside the page. */
+	.shot-pair {
+		flex-direction: column;
+		align-items: center;
+	}
+	.shot-pair > .shot,
+	.shot-pair > .vis {
+		flex: 0 0 auto;
+		width: 100%;
+		max-width: 100%;
+		min-width: 0;
+	}
+	.shot-pair > .shot-android {
+		width: 60%;
+		max-width: 240px;
+	}
+	.shot-pair > .shot-cap.is-phone {
+		width: 70%;
+		max-width: 280px;
+	}
+	/* A desktop window shrunk to a phone is unreadable. Keep the big one, and let the phone shots speak. */
+	.shot-grid {
+		display: none;
+	}
+	/* The phone shots slide sideways instead of stacking into a very long column. */
+	.phones {
+		display: flex;
+		max-width: none;
+		margin-inline: calc(var(--page-gutter) * -1);
+		padding-inline: var(--page-gutter);
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		scroll-padding-inline: var(--page-gutter);
+		gap: var(--space-4);
+		padding-bottom: var(--space-2);
+	}
+	.phones .shot-figure {
+		flex: 0 0 68%;
+		max-width: 260px;
+		scroll-snap-align: start;
+	}
+}

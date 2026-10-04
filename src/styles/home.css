@@ -571,3 +571,28 @@
 .mock-topic {
 	display: none;
 }
+
+/* ---------- small screens ---------- */
+@media (max-width: 720px) {
+	.hero {
+		padding-block: var(--space-8) var(--space-8);
+		gap: var(--space-8);
+	}
+	.hero-copy {
+		gap: var(--space-4);
+	}
+	.mock {
+		height: 420px;
+	}
+	.mock-composer-text {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.mock-search {
+		display: none;
+	}
+	.themes-panel .shot-cap {
+		flex-basis: 100%;
+	}
+}

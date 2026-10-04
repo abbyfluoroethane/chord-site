@@ -1,13 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
 import Shot from '../components/Shot.astro';
-import ShotThemeToggle from '../components/ShotThemeToggle.astro';
 import FederationDiagram from '../components/FederationDiagram.astro';
 import { url } from '../lib/url';
 import '../styles/home.css';
 import '../styles/features.css';
 import '../styles/shots.css';
 
+const im = { w: 512, h: 288 };
 const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/xep-${n}.html`, label: `XEP-${n} ${label}` });
 ---
 
@@ -19,8 +19,6 @@ const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/
 			Spaces on the left, channels next to them, messages in the middle. If you've touched a chat app in the last decade, you don't need
 			a tour. The only new thing is the network underneath.
 		</p>
-		<ShotThemeToggle />
-		<p class="status-note"><strong>Still cooking.</strong> This is what Chord's being built to do.</p>
 	</section>
 
 	<!-- The familiar layout -->
@@ -133,9 +131,18 @@ const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/
 			<div class="xep"><a href={xep('0363', 'HTTP File Upload').href}>{xep('0363', 'HTTP File Upload').label}</a></div>
 		</div>
 		<div class="feature-visual">
-			<div class="shot-pair">
-				<Shot platform="desktop" name="pics" class="shot-cap is-phone" alt="A photo shared in a channel with a short message" />
-				<Shot platform="desktop" name="emoji" class="shot-cap is-phone" alt="The emoji and GIF picker, with search, frequently used, and categories" />
+			<div class="vis photo-msg" role="img" aria-label="A message from konata: a photo of the whole group, captioned group photo!">
+				<div class="msg">
+					<img class="msg-avatar" src={url('avatars/konata.webp')} alt="" width="38" height="38" />
+					<div class="msg-body">
+						<div class="msg-meta">
+							<span class="msg-author is-self">konata</span>
+							<span class="msg-time">20:52</span>
+						</div>
+						<div>group photo!</div>
+						<img class="photo-msg-img" src={url('photos/group-photo.webp')} alt="" width={im.w} height={im.h} loading="lazy" />
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -196,7 +203,6 @@ const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/
 		<h2 class="display display-md">Bring your crew.</h2>
 		<div class="row">
 			<a href={url('#get-chord')} class="btn btn-dark btn-lg">Download Chord</a>
-			<a href={url('docs/find-a-server/')} class="btn btn-lg">Find a server</a>
 		</div>
 	</section>
 	</div>

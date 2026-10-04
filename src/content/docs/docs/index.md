@@ -1,4 +1,5 @@
 ---
+draft: true
 title: Chord docs
 description: How to use Chord, find an XMPP server, and host your own.
 ---
