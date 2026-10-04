@@ -11,13 +11,14 @@ Chord is not released yet. This page shows the structure of the guide. Replace e
 
 [TODO: download links and supported platforms]
 
-### Android test build
+### Test builds
 
-[Download Chord for Android](/chord-site/download/chord-android-arm64.apk) (17.8 MB, for 64-bit ARM phones, Android 8.0 or later).
+Chord is in testing. The builds are on GitHub, one page per app:
 
-This is a test build, version 0.1.0 (`09c83fb`). It is signed with a test key, so Android asks you to allow installs from your browser. A new test build installs over an older one, and you stay signed in.
+- [Chord for Android](https://github.com/abbyfluoroethane/chord-android/releases): Android 8.0 or later. Most phones need the `arm64-v8a` APK. Android asks you to allow installs from your browser the first time. A newer build installs over an older one, and you stay signed in.
+- [Chord Desktop](https://github.com/abbyfluoroethane/chord-desktop/releases): Linux, Windows and macOS.
 
-SHA-256: `73b766306e8446f1541d6332f2f5a196914cc8f61711a5a038879d12c5459798`
+Betas are marked "Pre-release". Each release lists the SHA-256 of its files.
 
 ## Sign in
 
