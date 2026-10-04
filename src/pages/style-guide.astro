@@ -10,7 +10,7 @@ const colors = [
 	{ group: 'Surfaces', items: [
 		{ name: 'surface-100', dark: '#111316', light: '#F6F4EF', usage: 'Page background and the message pane.' },
 		{ name: 'surface-200', dark: '#181B20', light: '#ECE9E2', usage: 'Cards, panels, the channel list.' },
-		{ name: 'surface-300', dark: '#21252B', light: '#E1DDD4', usage: 'The circle rail, hovered rows, inputs.' },
+		{ name: 'surface-300', dark: '#21252B', light: '#E1DDD4', usage: 'The space rail, hovered rows, inputs.' },
 		{ name: 'line', dark: '#2E333B', light: '#CFCAC0', usage: 'Hairlines between panes. Borders, never shadows.' },
 	]},
 	{ group: 'Text', items: [
@@ -41,7 +41,7 @@ const spacing = [
 	['space-1', 4], ['space-2', 8], ['space-3', 12], ['space-4', 16], ['space-6', 24], ['space-8', 32], ['space-16', 64], ['space-24', 96],
 ] as const;
 const radii = [
-	['radius-sm', 4, 'Badges, inline code'], ['radius-md', 8, 'Buttons, inputs, rows'], ['radius-lg', 16, 'Cards, dialogs, circle icons'], ['full', '50%', 'Avatars, presence dots'],
+	['radius-sm', 4, 'Badges, inline code'], ['radius-md', 8, 'Buttons, inputs, rows'], ['radius-lg', 16, 'Cards, dialogs, space icons'], ['full', '50%', 'Avatars, presence dots'],
 ] as const;
 
 const logos = [
@@ -60,7 +60,7 @@ const logos = [
 ];
 
 const names = [
-	['circle', 'a group of channels (an XEP-0503 space)', 'server, guild'],
+	['space', 'a group of channels (an XEP-0503 space)', 'server, guild'],
 	['channel', 'a group chat room (MUC)', 'room, group'],
 	['DM', 'a one-to-one chat', 'private message'],
 	['server', 'the computer that holds an account', 'instance, homeserver'],
@@ -308,7 +308,7 @@ const names = [
 		<div class="sg-voice">
 			<div class="sg-quote"><span class="sg-do">DO</span><p>Can't reach foid.space. Your messages will send when it's back.</p></div>
 			<div class="sg-quote is-dont"><span class="sg-dont">DON'T</span><p>Oops! Something went wrong. Please try again later.</p></div>
-			<div class="sg-quote"><span class="sg-do">DO</span><p>Anyone can make a circle. No begging a server admin.</p></div>
+			<div class="sg-quote"><span class="sg-do">DO</span><p>Anyone can make a space. No begging a server admin.</p></div>
 			<div class="sg-quote is-dont"><span class="sg-dont">DON'T</span><p>Leverage seamless community experiences across the federated ecosystem.</p></div>
 		</div>
 		<div class="stack" style="gap: var(--space-4); align-items: stretch">

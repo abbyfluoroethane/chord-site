@@ -1,0 +1,21 @@
+---
+// Dark / Light switch for the screenshots inside the nearest [data-shots] container.
+---
+
+<div class="shot-toggle" role="group" aria-label="Screenshot theme">
+	<button type="button" data-theme-pick="dark" aria-pressed="true">Dark</button>
+	<button type="button" data-theme-pick="light" aria-pressed="false">Light</button>
+</div>
+
+<script>
+	for (const toggle of document.querySelectorAll<HTMLElement>('.shot-toggle')) {
+		const scope = toggle.closest<HTMLElement>('[data-shots]');
+		if (!scope) continue;
+		toggle.addEventListener('click', (event) => {
+			const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button[data-theme-pick]');
+			if (!button) return;
+			scope.dataset.shotTheme = button.dataset.themePick;
+			for (const b of toggle.querySelectorAll('button')) b.setAttribute('aria-pressed', String(b === button));
+		});
+	}
+</script>

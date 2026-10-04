@@ -1,21 +1,25 @@
 ---
 import Base from '../layouts/Base.astro';
-import AppMock from '../components/AppMock.astro';
+import Shot from '../components/Shot.astro';
+import ShotThemeToggle from '../components/ShotThemeToggle.astro';
 import FederationDiagram from '../components/FederationDiagram.astro';
 import { url } from '../lib/url';
 import '../styles/home.css';
 import '../styles/features.css';
+import '../styles/shots.css';
 
 const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/xep-${n}.html`, label: `XEP-${n} ${label}` });
 ---
 
 <Base title="Features: Chord" description="Chord looks like the app you already use, but nobody owns the network.">
+	<div data-shots>
 	<section class="stack page-head">
 		<h1 class="display page-title">Chord looks like the app you already use, but <span class="hl">nobody owns the network.</span></h1>
 		<p class="lede">
-			Circles on the left, channels next to them, messages in the middle. If you've touched a chat app in the last decade, you don't need
+			Spaces on the left, channels next to them, messages in the middle. If you've touched a chat app in the last decade, you don't need
 			a tour. The only new thing is the network underneath.
 		</p>
+		<ShotThemeToggle />
 		<p class="status-note"><strong>Still cooking.</strong> This is what Chord's being built to do.</p>
 	</section>
 
@@ -30,37 +34,36 @@ const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/
 			</p>
 		</div>
 		<div class="familiar-body">
-			<AppMock />
+			<Shot platform="desktop" name="music" class="shot-cap is-wide" alt="Chord on the desktop: the space rail on the left, the basement space's channels next to it, and the music channel in the middle" />
 			<ol class="layout-legend">
 				<li>
-					<div><strong>The rail</strong><span>Every circle you're in, one icon each, down the left edge. Right where your eyes already go.</span></div>
+					<div><strong>The rail</strong><span>Every space you're in, one icon each, down the left edge. Home sits at the top, for your DMs.</span></div>
 				</li>
 				<li>
-					<div><strong>The channel list</strong><span>Channels for whatever circle you're in, DMs right underneath. You know the drill.</span></div>
+					<div><strong>The channel list</strong><span>Channels for whatever space you're in. Bold means unread. Muted channels go quiet, like you asked.</span></div>
 				</li>
 				<li>
-					<div><strong>The conversation</strong><span>Messages grouped by person. Get mentioned and it lights up, so you can't pretend you missed it.</span></div>
+					<div><strong>The conversation</strong><span>Messages grouped by person, with replies, reactions, link previews, and a red line where you stopped paying attention.</span></div>
 				</li>
 				<li>
-					<div><strong>The composer</strong><span>Type, hit Enter, done. Nothing to learn. Sorry.</span></div>
+					<div><strong>The composer</strong><span>Type, hit Enter, done. Attach a file, drop in a GIF, pick an emoji. Nothing to learn. Sorry.</span></div>
 				</li>
 			</ol>
 		</div>
-		<p class="aside-line">We call them circles, not servers. In Chord, a server's just the computer holding your account, and it can be yours.</p>
+		<p class="aside-line">We call them spaces, not servers. In Chord, a server's just the computer holding your account, and it can be yours.</p>
 	</section>
 
-	<!-- Circles and channels -->
-	<section class="feature" id="circles">
+	<!-- Spaces and channels -->
+	<section class="feature" id="spaces">
 		<div class="stack feature-copy">
-			<span class="feature-kicker">Circles and channels</span>
-			<h2 class="display display-md">A circle for every group you're in.</h2>
+			<span class="feature-kicker">Spaces and channels</span>
+			<h2 class="display display-md">A space for every group you're in.</h2>
 			<p class="lede">
-				Your crew, your team, the group chat that's mostly memes. Each one gets a circle with its own channels. Hop between them from the
+				Your crew, your team, the group chat that's mostly memes. Each one gets a space with its own channels. Hop between them from the
 				rail, and unread counts tell you where things went sideways while you were gone.
 			</p>
 			<p class="lede">
-				Anyone can make a circle. No begging a server admin. Circles are XMPP spaces, so other clients that speak spaces see the same
-				groups.
+				Make your own, or search the public ones and barge in. Under the hood they're XMPP spaces, so other clients that speak them see the same groups.
 			</p>
 			<div class="xep">
 				<a href={xep('0503', 'Server-side spaces').href}>{xep('0503', 'Server-side spaces').label}</a>
@@ -68,12 +71,7 @@ const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/
 			</div>
 		</div>
 		<div class="feature-visual">
-			<div class="vis" role="img" aria-label="A list of circles with unread counts">
-				<div class="vis-label">YOUR CIRCLES</div>
-				<div class="vis-row is-active"><span class="vis-circle is-active">GC</span><span class="grow">Ground crew<br /><span class="vis-sub"># launch-ops</span></span><span class="vis-badge">3</span></div>
-				<div class="vis-row"><span class="vis-circle">KB</span><span class="grow">Keyboard club<br /><span class="vis-sub"># show-and-tell</span></span><span class="vis-badge">12</span></div>
-				<div class="vis-row"><span class="vis-circle">RS</span><span class="grow">Roommates<br /><span class="vis-sub"># groceries</span></span></div>
-			</div>
+			<Shot platform="desktop" name="join" class="shot-cap" alt="The Join a space dialog: a search box and a list of public spaces with their server, member count, and a Join button" />
 		</div>
 	</section>
 
@@ -83,17 +81,20 @@ const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/
 			<span class="feature-kicker">DMs and presence</span>
 			<h2 class="display display-md">See who's around before you ask.</h2>
 			<p class="lede">
-				DMs live right under your channels. Everyone's got a status, and every status gets a shape as well as a color, so you can read it
-				even if red and green look the same to you.
+				DMs and group chats live on Home. Everyone's got a status, and every status gets a shape as well as a color, so you can read it
+				even if red and green look the same to you. Tap a name for their card: status, roles, and a private note only you can see. Be honest in it.
 			</p>
 		</div>
 		<div class="feature-visual">
-			<div class="vis" role="img" aria-label="Four people with different statuses">
-				<div class="vis-label">DIRECT</div>
-				<div class="vis-row"><span class="pres pres-online"></span><span class="grow">mika</span><span class="vis-sub">Available</span></div>
-				<div class="vis-row"><span class="pres pres-away"></span><span class="grow">rin</span><span class="vis-sub">Away</span></div>
-				<div class="vis-row"><span class="pres pres-dnd"></span><span class="grow">jo</span><span class="vis-sub">Do not disturb</span></div>
-				<div class="vis-row"><span class="pres pres-offline"></span><span class="grow">sam</span><span class="vis-sub">Offline</span></div>
+			<div class="shot-pair">
+				<Shot platform="desktop" name="profile" class="shot-cap is-phone" alt="A profile card: avatar, address, status, a Message button, roles, member since, a private note, and how many spaces you share" />
+				<div class="vis" role="img" aria-label="Four people with different statuses">
+					<div class="vis-label">DIRECT</div>
+					<div class="vis-row"><span class="pres pres-online"></span><span class="grow">marco</span><span class="vis-sub">Available</span></div>
+					<div class="vis-row"><span class="pres pres-away"></span><span class="grow">theo</span><span class="vis-sub">Away</span></div>
+					<div class="vis-row"><span class="pres pres-dnd"></span><span class="grow">lena</span><span class="vis-sub">Do not disturb</span></div>
+					<div class="vis-row"><span class="pres pres-offline"></span><span class="grow">rory</span><span class="vis-sub">Offline</span></div>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -104,7 +105,7 @@ const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/
 			<span class="feature-kicker">History on every device</span>
 			<h2 class="display display-md">Pick up right where you left off.</h2>
 			<p class="lede">
-				Your server keeps your history. Laptop, phone, desktop: sign in on all three and they'll show the same conversation. No more "check
+				Your server keeps your history. Desktop, phone, laptop: sign in on all three and they'll show the same conversation. No more "check
 				your other device."
 			</p>
 			<div class="xep">
@@ -113,12 +114,9 @@ const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/
 			</div>
 		</div>
 		<div class="feature-visual">
-			<div class="vis" role="img" aria-label="The same conversation on three devices">
-				<div class="vis-devices">
-					<div class="vis-device"><strong>Laptop</strong><span class="vis-line"></span><span class="vis-line"></span><span class="vis-line is-brand"></span></div>
-					<div class="vis-device"><strong>Phone</strong><span class="vis-line"></span><span class="vis-line"></span><span class="vis-line is-brand"></span></div>
-					<div class="vis-device"><strong>Desktop</strong><span class="vis-line"></span><span class="vis-line"></span><span class="vis-line is-brand"></span></div>
-				</div>
+			<div class="shot-pair">
+				<Shot platform="desktop" name="link-preview" class="shot-cap" alt="The music channel on the desktop" />
+				<Shot platform="android" name="timeline" alt="The same channel on Android" />
 			</div>
 		</div>
 	</section>
@@ -126,21 +124,18 @@ const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/
 	<!-- Files -->
 	<section class="feature" id="files">
 		<div class="stack feature-copy">
-			<span class="feature-kicker">Files and images</span>
+			<span class="feature-kicker">Photos, links, and GIFs</span>
 			<h2 class="display display-md">Just drop it in the channel.</h2>
 			<p class="lede">
 				Photos, screenshots, that PDF someone keeps asking for. Your server stores them, so the size limit's up to your server, not a
-				subscription tier.
+				subscription tier. Paste a link and Chord unfurls it. React with the emoji you mean, or lose the argument with a GIF.
 			</p>
 			<div class="xep"><a href={xep('0363', 'HTTP File Upload').href}>{xep('0363', 'HTTP File Upload').label}</a></div>
 		</div>
 		<div class="feature-visual">
-			<div class="vis" role="img" aria-label="An image and a file shared in a channel">
-				<div class="vis-image">static-fire.jpg</div>
-				<div class="vis-file">
-					<span class="vis-file-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg></span>
-					<span class="grow">torque-spec.pdf<br /><span class="vis-sub">From jo</span></span>
-				</div>
+			<div class="shot-pair">
+				<Shot platform="desktop" name="pics" class="shot-cap is-phone" alt="A photo shared in a channel with a short message" />
+				<Shot platform="desktop" name="emoji" class="shot-cap is-phone" alt="The emoji and GIF picker, with search, frequently used, and categories" />
 			</div>
 		</div>
 	</section>
@@ -151,15 +146,30 @@ const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/
 			<span class="feature-kicker">One address, any server</span>
 			<h2 class="display display-md">Talk to people on other servers. Yes, really.</h2>
 			<p class="lede">
-				Your address looks like an email: you@yourserver.org. People on other XMPP servers can join your circles and DM you, and Chord shows
+				Your address looks like an email: you@yourserver.org. People on other XMPP servers can join your spaces and DM you, and Chord shows
 				their server next to their name so you always know where a message came from.
 			</p>
 			<div class="vis" role="img" aria-label="A message from a person on another server">
-				<div class="vis-row"><span class="vis-avatar is-ink"></span><span class="grow"><strong>sam</strong> <span class="vis-server">@other.example</span><br />on my way over from the other shop.</span></div>
+				<div class="vis-row"><span class="vis-avatar is-ink"></span><span class="grow"><strong>kai</strong> <span class="vis-server">@xmpp.example.net</span><br />is she touring this year</span></div>
 			</div>
 		</div>
 		<div class="feature-visual">
 			<FederationDiagram />
+		</div>
+	</section>
+
+	<!-- Themes -->
+	<section class="feature" id="themes">
+		<div class="stack feature-copy">
+			<span class="feature-kicker">Themes</span>
+			<h2 class="display display-md">Dark, light, or yours.</h2>
+			<p class="lede">
+				Chord Dark and Chord Light are built in, with Catppuccin next to them. A theme is a CSS file: import one from a link, or write your
+				own. Imported themes can't load anything from outside the app, so nobody's snooping on your screen.
+			</p>
+		</div>
+		<div class="feature-visual">
+			<Shot platform="desktop" name="appearance" class="shot-cap is-wide" alt="Appearance settings: a Dark, Light, or System mode switch and the built-in themes" />
 		</div>
 	</section>
 
@@ -172,21 +182,22 @@ const xep = (n: string, label: string) => ({ href: `https://xmpp.org/extensions/
 					<tr><th scope="col"></th><th scope="col">Chord</th><th scope="col">The app you're thinking of</th></tr>
 				</thead>
 				<tbody>
-					<tr><th scope="row">The layout</th><td class="is-chord">Circles, channels, DMs</td><td>Also that</td></tr>
+					<tr><th scope="row">The layout</th><td class="is-chord">Spaces, channels, DMs</td><td>Also that</td></tr>
 					<tr><th scope="row">Who runs the servers</th><td class="is-chord">You, a friend, or any XMPP host</td><td>One company</td></tr>
 					<tr><th scope="row">Your account</th><td class="is-chord">An address on a server you pick</td><td>A row in their database</td></tr>
 					<tr><th scope="row">Other apps</th><td class="is-chord">Any XMPP client can sign in to your account</td><td>Only theirs</td></tr>
-					<tr><th scope="row">If the rules change</th><td class="is-chord">Pack up and move servers, or run your own</td><td>Click Agree, or leave your circles behind</td></tr>
+					<tr><th scope="row">If the rules change</th><td class="is-chord">Pack up and move servers, or run your own</td><td>Click Agree, or leave your spaces behind</td></tr>
 				</tbody>
 			</table>
 		</div>
 	</section>
 
 	<section class="cta">
-		<h2 class="display display-md">Bring your circle.</h2>
+		<h2 class="display display-md">Bring your crew.</h2>
 		<div class="row">
-			<a href={url('docs/getting-started/')} class="btn btn-dark btn-lg">Download Chord</a>
+			<a href={url('#get-chord')} class="btn btn-dark btn-lg">Download Chord</a>
 			<a href={url('docs/find-a-server/')} class="btn btn-lg">Find a server</a>
 		</div>
 	</section>
+	</div>
 </Base>

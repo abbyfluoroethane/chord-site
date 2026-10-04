@@ -1,6 +1,10 @@
 ---
-// A picture of the Chord client. Replace it with a real screenshot when the client exists.
+// A drawing of the Chord desktop app, styled with the app's own tokens and seeded with the same
+// people as the app screenshots (konata, kagami, tsukasa...). Real screenshots are on the homepage and the features page;
+// this one is here because it plays.
 // live: messages arrive one at a time, push older ones up, and show a typing indicator first.
+import { url } from '../lib/url';
+
 interface Props {
 	live?: boolean;
 }
@@ -9,90 +13,139 @@ const { live = false } = Astro.props;
 type Msg = {
 	author: string;
 	time: string;
-	avatar?: string;
+	/** File name in public/avatars, without the extension. */
+	avatar: string;
 	body: string;
-	mention?: string;
+	self?: boolean;
 	server?: string;
+	/** A reply: the author and text of the message it answers. */
+	reply?: { author: string; body: string };
+	/** The "NEW" divider sits above this message. */
+	firstUnread?: boolean;
 	/** Seconds after page load when the message lands. Absent = already in the history. */
 	at?: number;
 };
 
+const spaces = [
+	{ initials: 'B', tone: 'is-brown', active: true },
+	{ initials: 'NO', tone: 'is-navy' },
+	{ initials: 'FC', tone: 'is-navy' },
+	{ initials: 'C', tone: 'is-maroon' },
+	{ initials: 'S', tone: 'is-maroon' },
+];
+
 const channels = [
-	{ name: 'general' },
-	{ name: 'launch-ops', active: true },
-	{ name: 'parts' },
-	{ name: 'off-topic' },
+	{ name: 'general', active: true },
+	{ name: 'music', unread: true },
+	{ name: 'pics', unread: true },
+	{ name: 'games' },
+	{ name: 'memes', muted: true },
 ];
 
-// The static mock (features page) shows three messages.
-const staticMessages: Msg[] = [
-	{ author: 'mika', time: '15:02', avatar: 'is-accent', body: 'static fire moved to 14:00. who has the torque wrench?' },
-	{ author: 'jo', time: '15:04', avatar: 'is-danger', mention: '@rin', body: 'bay 2, top drawer.' },
-	{ author: 'sam', server: '@other.example', time: '15:05', avatar: 'is-ink', body: 'on my way over from the other shop.' },
+// The cast and the avatars are the ones in the app screenshots. patty plays the person on another server.
+const history: Msg[] = [{ author: 'tsukasa', avatar: 'tsukasa', time: '20:41', body: 'who left a hoodie at mine' }];
+const arrivals: Msg[] = [
+	{ author: 'kagami', avatar: 'kagami', time: '20:43', body: 'grey one?', at: 1.4 },
+	{ author: 'tsukasa', avatar: 'tsukasa', time: '20:43', body: 'yeah', at: 2.9 },
+	{ author: 'kagami', avatar: 'kagami', time: '20:44', body: 'thats konata\'s', at: 4.3, firstUnread: true },
+	{
+		author: 'konata',
+		avatar: 'konata',
+		self: true,
+		time: '20:44',
+		body: 'i was wondering where that went',
+		at: 5.8,
+	},
+	{
+		author: 'miyuki',
+		avatar: 'miyuki',
+		time: '20:46',
+		body: 'you said it was stolen',
+		reply: { author: 'konata', body: 'i was wondering where that went' },
+		at: 7.4,
+	},
+	{ author: 'patty', avatar: 'patty', server: '@xmpp.example.net', time: '20:47', body: 'hoodie custody hearing at 9?', at: 9.0 },
 ];
 
-// The live mock (homepage) starts with history, then new messages arrive and push it up.
-const liveMessages: Msg[] = [
-	{ author: 'kai', time: '14:40', body: "cleanroom's clear. garb up before you come in" },
-	{ author: 'rin', time: '14:58', avatar: 'is-brand', body: 'ok who took the torque wrench' },
-	{ author: 'mika', time: '15:02', avatar: 'is-accent', body: 'static fire moved to 14:00 tomorrow btw', at: 1.4 },
-	{ author: 'jo', time: '15:04', avatar: 'is-danger', mention: '@rin', body: 'bay 2, top drawer.', at: 3.0 },
-	{ author: 'sam', server: '@other.example', time: '15:05', avatar: 'is-ink', body: 'on my way over from the other shop.', at: 4.6 },
-	{ author: 'rin', time: '15:05', avatar: 'is-brand', body: "you're a lifesaver", at: 5.9 },
-];
+const messages = live ? [...history, ...arrivals] : [...history, ...arrivals.slice(0, 2)].map((m) => ({ ...m, at: undefined }));
 
 // Each typing indicator shows for a moment and ends when that person's message lands.
-const typing = liveMessages
+const typing = messages
 	.filter((m) => m.at !== undefined)
 	.map((m) => ({ who: m.author, from: m.at! - 0.9, to: m.at! }));
-
-const messages = live ? liveMessages : staticMessages;
 ---
 
 <div
 	class:list={['mock', { 'is-live': live }]}
 	role="img"
-	aria-label="The Chord app: circle rail, channel list, and a channel with messages"
+	aria-label="The Chord app: space rail, channel list, and the general channel of a friend group's space with messages arriving"
 >
 	<div class="mock-rail">
-		<div class="mock-circle is-home">
+		<div class="mock-space is-home">
 			<svg width="24" height="24" viewBox="0 0 64 64" fill="none" stroke-width="5" stroke-linecap="round" aria-hidden="true">
 				<circle cx="32" cy="32" r="22"></circle>
 				<line x1="11.3" y1="39.5" x2="39.5" y2="11.3"></line>
 			</svg>
 		</div>
 		<div class="mock-divider"></div>
-		<div class="mock-circle is-active">GC</div>
-		<div class="mock-circle">KB</div>
-		<div class="mock-circle">RS</div>
-		<div class="mock-circle is-add">+</div>
+		{spaces.map((s) => <div class:list={['mock-space', s.tone, { 'is-active': s.active }]}>{s.initials}</div>)}
+		<div class="mock-space is-add">+</div>
 	</div>
 	<div class="mock-channels">
-		<div class="mock-circle-name">Ground crew</div>
-		<div class="mock-label">CHANNELS</div>
-		{channels.map((c) => <div class:list={['mock-item', { 'is-active': c.active }]}># {c.name}</div>)}
-		<div class="mock-label">DIRECT</div>
-		<div class="mock-item"><span class="presence presence-online"></span>mika</div>
-		<div class="mock-item"><span class="presence presence-dnd"></span>jo</div>
+		<div class="mock-space-name"><span>basement</span><svg class="ico" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+		<div class="mock-label"><span>CHANNELS</span><span class="mock-plus">+</span></div>
+		{
+			channels.map((c) => (
+				<div class:list={['mock-item', { 'is-active': c.active, 'is-unread': c.unread, 'is-muted': c.muted }]}>
+					<span class="mock-hash">#</span>
+					{c.name}
+					{c.muted && (
+						<svg class="ico mock-bell" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+							<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+							<line x1="3" y1="3" x2="21" y2="21" />
+						</svg>
+					)}
+				</div>
+			))
+		}
+		<div class="mock-user">
+			<span class="mock-user-avatar"><img src={url('avatars/konata.webp')} alt="" width="32" height="32" /><i class="presence-dot"></i></span>
+			<span class="mock-user-text"><strong>konata</strong><span>konata@chat.foid.space</span></span>
+			<svg class="ico mock-gear" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="3" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1" /></svg>
+		</div>
 	</div>
 	<div class="mock-main">
-		<div class="mock-header"># launch-ops</div>
+		<div class="mock-header">
+			<span class="mock-hash">#</span><strong>general</strong>
+			<svg class="ico mock-hicon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="9" cy="8" r="3.5" /><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6" /><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14.5c1.8.8 3 2.6 3 5.5" /></svg>
+			<svg class="ico mock-hicon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 3h6l-1 6 4 3v2H6v-2l4-3zM12 14v7" /></svg>
+			<span class="mock-search"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><circle cx="11" cy="11" r="7" /><line x1="16" y1="16" x2="21" y2="21" /></svg>Search</span>
+		</div>
 		<div class="mock-messages">
 			{
 				messages.map((m) => (
 					<div class:list={['msg-slot', { 'is-new': m.at !== undefined }]} style={m.at !== undefined ? `--at: ${m.at}s` : undefined}>
 						<div class="msg-slot-inner">
-							<div class:list={['msg', { 'is-mention': m.mention }]}>
-								<div class:list={['msg-avatar', m.avatar]} />
-								<div>
+							{m.firstUnread && (
+								<div class="mock-new">
+									<span>NEW</span>
+									<i />
+								</div>
+							)}
+							<div class="msg">
+								<img class="msg-avatar" src={url(`avatars/${m.avatar}.webp`)} alt="" width="38" height="38" />
+								<div class="msg-body">
+									{m.reply && (
+										<div class="msg-reply">
+											<strong>{m.reply.author}</strong> {m.reply.body}
+										</div>
+									)}
 									<div class="msg-meta">
-										<span class="msg-author">{m.author}</span>
+										<span class:list={['msg-author', { 'is-self': m.self }]}>{m.author}</span>
 										{m.server && <span class="msg-server">{m.server}</span>}
 										<span class="msg-time">{m.time}</span>
 									</div>
-									<div>
-										{m.mention && <span class="mention">{m.mention}</span>} {m.body}
-									</div>
+									<div>{m.body}</div>
 								</div>
 							</div>
 						</div>
@@ -100,7 +153,12 @@ const messages = live ? liveMessages : staticMessages;
 				))
 			}
 		</div>
-		<div class="mock-composer">Message #launch-ops</div>
+		<div class="mock-composer">
+			<span class="mock-attach"><svg class="ico" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="m21 11-9.2 9.2a5 5 0 0 1-7-7L14 4a3.3 3.3 0 0 1 4.7 4.7l-9.2 9.2a1.7 1.7 0 0 1-2.4-2.4L15 7" /></svg></span>
+			<span class="mock-composer-text">Message #general</span>
+			<span class="mock-gif">GIF</span>
+			<svg class="ico mock-smile" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M8 14a5 5 0 0 0 8 0" /><line x1="9" y1="9.5" x2="9.01" y2="9.5" /><line x1="15" y1="9.5" x2="15.01" y2="9.5" /></svg>
+		</div>
 		{
 			live && (
 				<div class="mock-typing" aria-hidden="true">
@@ -111,7 +169,7 @@ const messages = live ? liveMessages : staticMessages;
 								<i />
 								<i />
 							</span>
-							<strong>{t.who}</strong> is typing
+							<strong>{t.who}</strong> is typing…
 						</span>
 					))}
 				</div>

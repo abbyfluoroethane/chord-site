@@ -98,12 +98,6 @@
 .mock.is-live .msg-slot.is-new .msg {
 	animation: fade 260ms var(--ease-out) calc(var(--at) + 80ms) both;
 }
-/* The mention lands a moment after its message, so the highlight reads as a ping. */
-.mock.is-live .msg-slot.is-new .msg.is-mention {
-	animation:
-		fade 260ms var(--ease-out) calc(var(--at) + 80ms) both,
-		mention-ping 900ms var(--ease-out) calc(var(--at) + 200ms) both;
-}
 @keyframes slot-open {
 	from {
 		grid-template-rows: 0fr;
@@ -112,18 +106,6 @@
 		grid-template-rows: 1fr;
 	}
 }
-@keyframes mention-ping {
-	from {
-		background-color: transparent;
-	}
-	40% {
-		background-color: color-mix(in srgb, var(--brand) 35%, var(--brand-soft));
-	}
-	to {
-		background-color: var(--brand-soft);
-	}
-}
-
 /* Typing indicator: each line shows from --from for --for, then gives way to the message. */
 .mock.is-live .typing {
 	animation: typing-show var(--for) linear var(--from) both;

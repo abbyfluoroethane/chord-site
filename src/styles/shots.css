@@ -1,0 +1,149 @@
+/* shots.css: real screenshots of the app, framed. Used on the homepage, the features page and the docs. */
+
+.shot {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	border: 1px solid var(--line);
+	border-radius: var(--radius-lg);
+	background: var(--surface-200);
+}
+/* Dark is the default. [data-shot-theme='light'] on an ancestor swaps them. */
+.shot-light {
+	display: none;
+}
+[data-shot-theme='light'] .shot-dark,
+:root[data-theme='light'] .shot-dark {
+	display: none;
+}
+[data-shot-theme='light'] .shot-light,
+:root[data-theme='light'] .shot-light {
+	display: block;
+}
+/* Phones: the screenshot already has a status bar, so give it a plain rounded edge. */
+.shot-android {
+	border-radius: 28px;
+	border-width: 2px;
+	border-color: var(--line-strong);
+}
+
+.shot-toggle {
+	display: inline-flex;
+	padding: 3px;
+	gap: 2px;
+	border: 1px solid var(--line);
+	border-radius: var(--radius-md);
+	background: var(--surface-200);
+}
+.shot-toggle button {
+	min-height: 32px;
+	padding: 0 14px;
+	border: 0;
+	border-radius: 6px;
+	background: transparent;
+	color: var(--ink-muted);
+	font: 500 14px/1 var(--font-sans);
+	cursor: pointer;
+	transition:
+		background-color var(--dur-fast, 120ms) ease,
+		color var(--dur-fast, 120ms) ease;
+}
+.shot-toggle button:hover {
+	color: var(--ink);
+}
+.shot-toggle button[aria-pressed='true'] {
+	background: var(--surface-300);
+	color: var(--ink);
+}
+
+/* The big desktop shot, with room around it. */
+.showcase {
+	padding-block: var(--space-16);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-8);
+}
+.showcase-head {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-6);
+	align-items: flex-end;
+	justify-content: space-between;
+}
+.showcase-head .stack {
+	gap: var(--space-3);
+	max-width: 640px;
+}
+.shot-hero {
+	width: 100%;
+	box-shadow: 0 24px 64px rgb(0 0 0 / 0.28);
+}
+
+/* Captioned shots in a row. */
+.shot-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: var(--space-6);
+	align-items: start;
+}
+.shot-figure {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-3);
+}
+.shot-figure figcaption {
+	color: var(--ink-muted);
+	font-size: 14px;
+	line-height: 20px;
+}
+.shot-figure figcaption strong {
+	display: block;
+	color: var(--ink);
+	font-weight: 600;
+	font-size: 15px;
+}
+
+.phones {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+	gap: var(--space-6);
+	max-width: 900px;
+}
+.phones .shot-figure {
+	max-width: 280px;
+}
+
+/* A shot beside text, for the feature rows. */
+.shot-cap {
+	width: 100%;
+	max-width: 460px;
+}
+.shot-cap.is-wide {
+	max-width: 560px;
+}
+.shot-cap.is-phone {
+	max-width: 260px;
+}
+.shot-pair {
+	width: 100%;
+	display: flex;
+	gap: var(--space-4);
+	align-items: flex-start;
+	justify-content: center;
+}
+.shot-pair > .shot {
+	width: auto;
+	min-width: 0;
+	flex: 1 1 0;
+}
+.shot-pair > .shot-android {
+	flex: 0 0 34%;
+	max-width: 220px;
+}
+
+/* In the docs (Starlight) */
+.sl-markdown-content .shot {
+	margin-block: var(--space-4);
+	max-width: 480px;
+}

@@ -3,6 +3,8 @@ title: Getting started
 description: Install Chord and sign in with an XMPP address.
 ---
 
+import Shot from '../../../components/Shot.astro';
+
 :::note
 Chord is not released yet. This page shows the structure of the guide. Replace each `[TODO]` when the client ships.
 :::
@@ -18,7 +20,9 @@ Chord is in testing. The builds are on GitHub, one page per app:
 - [Chord for Android](https://github.com/abbyfluoroethane/chord-android/releases): Android 8.0 or later. Most phones need the `arm64-v8a` APK. Android asks you to allow installs from your browser the first time. A newer build installs over an older one, and you stay signed in.
 - [Chord Desktop](https://github.com/abbyfluoroethane/chord-desktop/releases): Linux, Windows and macOS.
 
-Betas are marked "Pre-release". Each release lists the SHA-256 of its files.
+Betas are marked "Pre-release".
+
+Want the newest changes? [Chord Nightlies](https://github.com/abbyfluoroethane/chord-nightly/releases) has a build of both apps from `main` each night it changed. They break more often than the test builds. Each release lists the SHA-256 of its files.
 
 ## Sign in
 
@@ -27,8 +31,14 @@ Betas are marked "Pre-release". Each release lists the SHA-256 of its files.
 3. Type your password.
 4. Click **Sign in**.
 
+<Shot platform="desktop" name="login" alt="The Chord sign-in screen: an address field, a password field, Remember me, Advanced, and a Sign in button" />
+
 You do not have an address yet? Go to [Find a server](../find-a-server/).
 
-## Join a circle
+## Join a space
 
-[TODO: how to join a circle from an invite link or an address]
+Select the **+** at the bottom of the rail. **Create a space** makes your own. **Join a space** searches the public spaces on your server.
+
+<Shot platform="desktop" name="join" alt="The Join a space dialog with a search box and a list of public spaces" />
+
+[TODO: how to join a space from an invite link or an address]

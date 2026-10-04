@@ -7,9 +7,7 @@ const fonts =
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://bigaouette.com',
-	// The repo name. The site serves from bigaouette.com/chord-site/.
-	base: '/chord-site',
+	site: 'https://chordapp.foid.space',
 	integrations: [
 		starlight({
 			title: 'Chord',
@@ -18,7 +16,7 @@ export default defineConfig({
 				dark: './src/assets/chord-mark-dark.svg',
 			},
 			favicon: '/favicon.svg',
-			customCss: ['./src/styles/starlight.css'],
+			customCss: ['./src/styles/starlight.css', './src/styles/shots.css'],
 			head: [{ tag: 'link', attrs: { rel: 'stylesheet', href: fonts } }],
 			social: [
 				{ icon: 'github', label: 'GitHub', href: 'https://github.com/abbyfluoroethane/chord-site' },

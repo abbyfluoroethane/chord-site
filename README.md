@@ -4,14 +4,14 @@ The website and docs for Chord, a chat client for XMPP.
 
 - Homepage: `src/pages/index.astro`
 - Docs: `src/content/docs/docs/` (Markdown, rendered by [Starlight](https://starlight.astro.build))
-- Live site: https://bigaouette.com/chord-site/
+- Live site: https://chordapp.foid.space/
 
 ## Run it locally
 
 1. Install Node.js 22.12 or later.
 2. Run `npm install`.
 3. Run `npm run dev`.
-4. Open http://localhost:4321/chord-site/ in a browser.
+4. Open http://localhost:4321/ in a browser.
 
 ## Deploy
 
@@ -45,17 +45,27 @@ The script needs Python with `fonttools` and `playwright`. It turns the wordmark
 
 ## Links and the base path
 
-The site lives under `/chord-site/`, so a hard-coded link such as `/docs/` breaks. Use the `url()` helper from `src/lib/url.ts`:
+The site lives at the root of its own domain, so `/docs/` works. Still use the `url()` helper from `src/lib/url.ts`, so a link keeps working if the site ever moves under a path again:
 
 ```astro
 <a href={url('docs/self-host/')}>Self-host</a>
 ```
 
-If the site moves to its own domain (for example chord.example), remove `base` from `astro.config.mjs` and change `site`.
+## Domain
+
+The site is served at https://chordapp.foid.space/. `public/CNAME` tells GitHub Pages the domain. Two things live outside this repo:
+
+1. In **Settings > Pages**, set the custom domain to `chordapp.foid.space` and turn on **Enforce HTTPS** once the certificate is ready.
+2. At the DNS host for foid.space, add a `CNAME` record for `chordapp` that points to `abbyfluoroethane.github.io`.
+
+## Screenshots
+
+`public/screenshots/` holds the app screenshots (WebP, dark and light of each). The `Shot` component shows them, and the Dark / Light toggle on the homepage and the features page switches between the two. In the docs the shots follow the docs theme.
+
+The originals are PNGs in `~/Pictures/chord-internal` (desktop and android). They show the sample "friend group" data, with third-party character art for avatars and the YouTube thumbnail in the link preview. Check the rights before the site goes public.
 
 ## Open items
 
-- The app mock in `src/components/AppMock.astro` is a drawing. Replace it with a screenshot when the client exists.
-- The Download and Open in browser buttons point at the getting-started page. Point them at the release page and the web client when those exist.
+- The hero (`src/components/AppMock.astro`) is a drawing on purpose: it plays a fake conversation. It uses the same cast as the screenshots (konata, kagami, tsukasa, miyuki, patty). The avatars in `public/avatars/` are cropped from them, so they carry the same rights question.
+- The Open in browser button points at the getting-started page. There is no web client yet.
 - The docs pages have `[TODO]` markers where facts are not known yet.
-- Pick a license.

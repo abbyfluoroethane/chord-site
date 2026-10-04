@@ -2,8 +2,11 @@
 import Base from '../layouts/Base.astro';
 import AppMock from '../components/AppMock.astro';
 import FederationDiagram from '../components/FederationDiagram.astro';
+import Shot from '../components/Shot.astro';
+import ShotThemeToggle from '../components/ShotThemeToggle.astro';
 import { url } from '../lib/url';
 import '../styles/home.css';
+import '../styles/shots.css';
 
 const features = [
 	{
@@ -12,8 +15,8 @@ const features = [
 		icon: '<circle cx="12" cy="12" r="9"/><line x1="5" y1="15" x2="16" y2="5"/>',
 	},
 	{
-		title: 'Circles, channels, and DMs',
-		body: 'The layout you already use. Group channels into circles, and keep DMs one click away.',
+		title: 'Spaces, channels, and DMs',
+		body: 'The layout you already use. Group channels into spaces, and keep DMs one click away.',
 		icon: '<rect x="3" y="4" width="5" height="16" rx="2"/><line x1="11" y1="7" x2="21" y2="7"/><line x1="11" y1="12" x2="21" y2="12"/><line x1="11" y1="17" x2="17" y2="17"/>',
 	},
 	{
@@ -24,21 +27,61 @@ const features = [
 ];
 ---
 
-<Base title="Chord: chat on XMPP" description="Chord is chat with circles, channels, and DMs. It runs on XMPP, so no company owns the network.">
+<Base title="Chord: chat on XMPP" description="Chord is chat with spaces, channels, and DMs. It runs on XMPP, so no company owns the network.">
 	<section class="hero">
 		<div class="stack hero-copy">
 			<h1 class="display hero-title">Strike a chord in your <span class="hl">circle.</span></h1>
 			<p class="lede">
-				Chord is chat with circles, channels, and DMs. It runs on XMPP, so your account works with any server, and no company owns the
+				Chord is chat with spaces, channels, and DMs. It runs on XMPP, so your account works with any server, and no company owns the
 				network.
 			</p>
 			<div class="row">
-				<a href={url('docs/getting-started/')} class="btn btn-primary btn-lg">Download Chord</a>
+				<a href={url('#get-chord')} class="btn btn-primary btn-lg">Download Chord</a>
 				<a href={url('docs/find-a-server/')} class="btn btn-lg">Find a server</a>
 			</div>
-			<p class="mono muted">Already on XMPP? Sign in with your address, like you@yourserver.org</p>
+			<p class="mono muted">Already on XMPP? Sign in with your address, like name@server.tld</p>
 		</div>
 		<AppMock live />
+	</section>
+
+	<section class="showcase" data-shots>
+		<div class="showcase-head">
+			<div class="stack">
+				<h2 class="display display-md">This is Chord.</h2>
+				<p class="lede">Yes, it's a real app. Linux, Windows, macOS, and Android, in whichever of dark and light you'll argue about.</p>
+			</div>
+			<ShotThemeToggle />
+		</div>
+		<Shot platform="desktop" name="music" alt="Chord on the desktop: the basement space with its channels, and a friend group talking about a new song in the music channel, with a link preview and a fire reaction" />
+		<div class="shot-grid">
+			<figure class="shot-figure">
+				<Shot platform="desktop" name="home" alt="Chord's Home: direct messages and a group chat, with unread counts" />
+				<figcaption><strong>DMs and group chats</strong>Home is where the people are. Unread counts included, so you know who's been waiting.</figcaption>
+			</figure>
+			<figure class="shot-figure">
+				<Shot platform="desktop" name="music-members" alt="A channel with the member list open, showing owners, admins, and who is online or offline" />
+				<figcaption><strong>Who's here</strong>The member list tells you who runs the place, who's online, and who's pretending to be offline.</figcaption>
+			</figure>
+		</div>
+
+		<div class="stack" style="gap: var(--space-3); margin-top: var(--space-8)">
+			<h3 class="display display-md">And in your pocket.</h3>
+			<p class="lede">Same spaces, same channels, smaller screen. Swipe in from the left for the rail.</p>
+		</div>
+		<div class="phones">
+			<figure class="shot-figure">
+				<Shot platform="android" name="timeline" alt="Chord on Android: the music channel with a reply, an unread divider, and a typing line" />
+				<figcaption><strong>The channel</strong>Replies, a red line for what you missed, and a typing indicator to keep you in suspense.</figcaption>
+			</figure>
+			<figure class="shot-figure">
+				<Shot platform="android" name="drawer" alt="Chord on Android: the space rail and channel list in the side drawer" />
+				<figcaption><strong>The drawer</strong>All your spaces, one swipe away. Yes, the rail is on the phone too.</figcaption>
+			</figure>
+			<figure class="shot-figure">
+				<Shot platform="android" name="home" alt="Chord on Android: Home with direct messages, a group chat, and contacts" />
+				<figcaption><strong>Home</strong>Your DMs and group chats, and the little orange numbers that mean someone wants you.</figcaption>
+			</figure>
+		</div>
 	</section>
 
 	<section id="features" class="section">
@@ -66,10 +109,41 @@ const features = [
 			</p>
 			<ul class="dot-list">
 				<li>Your account works in other XMPP apps too. Chord is one client of many.</li>
-				<li>Your circles live on your server, not on ours.</li>
+				<li>Your spaces live on your server, not on ours.</li>
 			</ul>
 			<a href={url('docs/')} class="protocols-link">How federation works</a>
 		</div>
 		<FederationDiagram />
+	</section>
+
+	<section class="section" id="themes" data-shots>
+		<div class="panel themes-panel">
+			<div class="stack protocols-copy">
+				<h2 class="display display-md">Make it yours.</h2>
+				<p class="lede">
+					Chord Dark, Chord Light come built in, plus Catppuccin Mocha and Latte. Themes are written in CSS, so
+					import one from a link or write your own. We won't stop you.
+				</p>
+				<ul class="dot-list">
+					<li>Imported themes can't load anything from outside the app.</li>
+					<li>A linked theme asks before it updates. No surprise makeovers.</li>
+				</ul>
+			</div>
+			<Shot platform="desktop" name="appearance" class="shot-cap is-wide" alt="Chord's Appearance settings: a Dark, Light, or System mode switch, and the built-in themes Chord Dark, Catppuccin Mocha, Chord Light, and Catppuccin Latte" />
+		</div>
+	</section>
+
+	<section class="section" id="get-chord">
+		<h2 class="display display-md">Get Chord.</h2>
+		<p class="lede" style="max-width: 640px">
+			Chord is still in testing, so expect a few rough edges!
+		</p>
+		<div class="row">
+			<a href="https://github.com/abbyfluoroethane/chord-desktop/releases" class="btn btn-primary btn-lg">Chord Desktop</a>
+			<a href="https://github.com/abbyfluoroethane/chord-android/releases" class="btn btn-lg">Chord for Android</a>
+			<a href="https://github.com/abbyfluoroethane/chord-nightly/releases" class="btn btn-lg">Chord Nightlies</a>
+			<a href={url('docs/getting-started/')} class="btn btn-lg">Install guide</a>
+		</div>
+		<p class="mono muted">Desktop: Linux, Windows and macOS (ARM). Android: 8.0 or later.</p>
 	</section>
 </Base>

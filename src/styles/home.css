@@ -20,116 +20,210 @@
 	max-width: 480px;
 }
 
-/* ---------- app mock (replace with a real screenshot when the client exists) ---------- */
+/* ---------- app mock: a drawing of the desktop app, built from the app's tokens ---------- */
 .mock {
 	flex: 1 1 560px;
 	max-width: 640px;
-	height: 420px;
+	height: 470px;
 	background: var(--surface-100);
 	border: 1px solid var(--line);
 	border-radius: var(--radius-lg);
 	overflow: hidden;
 	display: flex;
-	font-size: 13px;
-	line-height: 19px;
+	font-size: 14px;
+	line-height: 20px;
 }
 .mock-rail {
-	width: 64px;
+	width: 60px;
 	flex-shrink: 0;
-	background: var(--surface-300);
+	background: var(--surface-rail);
 	padding: var(--space-3) 0;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	gap: 10px;
 }
-.mock-circle {
+.mock-space {
+	position: relative;
 	width: 40px;
 	height: 40px;
-	border-radius: 12px;
-	background: var(--surface-200);
+	border-radius: 50%;
+	background: var(--surface-300);
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-size: 14px;
+	font-size: 13px;
 	font-weight: 600;
-	color: var(--ink-muted);
+	color: #fff;
 }
-.mock-circle.is-home {
-	background: var(--brand);
-}
-.mock-circle.is-home svg {
-	stroke: var(--on-brand);
-}
-.mock-circle.is-active {
-	background: var(--surface-100);
-	border: 2px solid var(--ink);
+.mock-space.is-home {
+	background: var(--surface-300);
 	color: var(--ink);
 }
-.mock-circle.is-add {
+.mock-space.is-home svg {
+	stroke: var(--ink);
+}
+.mock-space.is-brown {
+	background: #70491f;
+}
+.mock-space.is-navy {
+	background: #23407a;
+}
+.mock-space.is-maroon {
+	background: #7a3a2e;
+}
+/* The space you are in gets a bar on the left edge, the way the app marks it. */
+.mock-space.is-active::before {
+	content: '';
+	position: absolute;
+	left: -10px;
+	top: 6px;
+	bottom: 6px;
+	width: 4px;
+	border-radius: 0 3px 3px 0;
+	background: var(--ink);
+}
+.mock-space.is-add {
 	background: transparent;
-	border: 1px dashed var(--line);
-	font-size: 20px;
+	border: 1px dashed var(--ink-muted);
+	color: var(--ink-muted);
+	font-size: 18px;
 	font-weight: 400;
 }
 .mock-divider {
-	width: 24px;
+	width: 22px;
 	height: 1px;
-	background: var(--line);
+	background: var(--line-strong);
 }
 .mock-channels {
-	width: 176px;
+	width: 188px;
 	flex-shrink: 0;
-	background: var(--surface-200);
-	border-right: 1px solid var(--line);
-	padding: 14px 10px;
+	background: var(--surface-side);
+	border-right: 1px solid var(--line-strong);
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-1);
+	padding-top: 0;
 }
-.mock-circle-name {
-	font-size: 15px;
-	font-weight: 600;
-	padding: 0 6px 10px;
-	margin-bottom: var(--space-2);
-	border-bottom: 1px solid var(--line);
+.mock-space-name {
+	height: 48px;
+	flex-shrink: 0;
+	padding: 0 14px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 1px solid var(--line-strong);
+	font-family: var(--font-display);
+	font-size: 16px;
+	font-weight: 700;
+	letter-spacing: -0.01em;
+}
+.mock-space-name svg {
+	fill: none;
+	stroke: var(--ink);
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
 }
 .mock-label {
+	display: flex;
+	justify-content: space-between;
 	font-size: 11px;
 	font-weight: 500;
-	letter-spacing: 0.06em;
+	letter-spacing: 0.08em;
 	color: var(--ink-muted);
-	padding: var(--space-1) 6px;
+	padding: 16px 14px 6px;
 }
-.mock-item + .mock-label {
-	padding-top: var(--space-3);
+.mock-plus {
+	font-size: 15px;
+	line-height: 11px;
+	letter-spacing: 0;
 }
 .mock-item {
-	font-size: 14px;
+	position: relative;
+	margin: 0 8px;
+	font-size: 15px;
 	color: var(--ink-muted);
-	padding: 5px 6px;
+	padding: 6px 8px;
 	border-radius: 6px;
 	display: flex;
 	align-items: center;
-	gap: var(--space-2);
+	gap: 8px;
+}
+.mock-hash {
+	color: var(--ink-muted);
+	font-size: 16px;
+	opacity: 0.8;
+}
+.mock-item.is-unread {
+	color: var(--ink);
+	font-weight: 600;
+}
+.mock-item.is-unread::before {
+	content: '';
+	position: absolute;
+	left: -8px;
+	top: 9px;
+	width: 4px;
+	height: 12px;
+	border-radius: 0 3px 3px 0;
+	background: var(--ink);
 }
 .mock-item.is-active {
 	color: var(--ink);
 	background: var(--surface-300);
-	font-weight: 500;
+	font-weight: 600;
 }
-.presence {
-	width: 8px;
-	height: 8px;
+.mock-item.is-muted {
+	opacity: 0.55;
+}
+.mock-user {
+	margin-top: auto;
+	padding: 10px 12px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	background: var(--surface-300);
+	border-top: 1px solid var(--line-strong);
+}
+.mock-user-avatar {
+	position: relative;
+	width: 32px;
+	height: 32px;
+	flex-shrink: 0;
+}
+.mock-user-avatar img {
+	display: block;
+	width: 100%;
+	height: 100%;
 	border-radius: 50%;
 }
-.presence-online {
+.presence-dot {
+	position: absolute;
+	right: -2px;
+	bottom: -2px;
+	width: 11px;
+	height: 11px;
+	border-radius: 50%;
 	background: var(--online);
+	border: 2px solid var(--surface-300);
 }
-.presence-dnd {
-	height: 3px;
-	border-radius: 2px;
-	background: var(--danger);
+.mock-user-text {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	line-height: 16px;
+}
+.mock-user-text strong {
+	color: var(--brand-ink, var(--brand));
+	font-size: 13px;
+}
+.mock-user-text span {
+	font-family: var(--font-mono);
+	font-size: 10px;
+	color: var(--ink-muted);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .mock-main {
 	flex-grow: 1;
@@ -144,9 +238,34 @@
 	padding: 0 var(--space-4);
 	display: flex;
 	align-items: center;
-	border-bottom: 1px solid var(--line);
+	gap: 8px;
+	border-bottom: 1px solid var(--line-strong);
 	font-size: 15px;
-	font-weight: 600;
+}
+.mock-header strong {
+	font-family: var(--font-display);
+	font-size: 17px;
+	font-weight: 700;
+}
+.mock-topic {
+	padding-left: 10px;
+	margin-left: 2px;
+	border-left: 1px solid var(--line-strong);
+	color: var(--ink-muted);
+	font-size: 13px;
+	white-space: nowrap;
+}
+.mock-search {
+	width: 104px;
+	height: 28px;
+	padding: 0 10px;
+	display: flex;
+	align-items: center;
+	border: 1px solid var(--line);
+	border-radius: var(--radius-md);
+	background: var(--surface-300);
+	color: var(--ink-muted);
+	font-size: 12px;
 }
 .mock-messages {
 	flex-grow: 1;
@@ -172,12 +291,13 @@
 .mock.is-live .mock-messages {
 	gap: 0;
 }
-.mock.is-live .mock-composer {
-	margin-bottom: 0;
-}
-.mock.is-live .msg-slot-inner > .msg {
+.mock.is-live .msg-slot-inner > .msg,
+.mock.is-live .msg-slot-inner > .mock-new {
 	/* Spacing lives on the message, not the slot, so an unopened slot is truly zero height. */
 	margin-top: 12px;
+}
+.mock.is-live .msg-slot-inner > .mock-new + .msg {
+	margin-top: 8px;
 }
 .msg {
 	display: flex;
@@ -188,8 +308,37 @@
 	background: var(--brand-soft);
 	padding-block: 6px;
 }
+.msg-body {
+	min-width: 0;
+}
+.msg-reply {
+	font-size: 12px;
+	line-height: 16px;
+	color: var(--ink-muted);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.msg-reply strong {
+	font-weight: 600;
+}
+.mock-new {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 0 var(--space-4);
+	color: var(--danger);
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+}
+.mock-new i {
+	flex-grow: 1;
+	height: 1px;
+	background: var(--danger);
+}
 
-/* Typing indicator: one line under the composer, the way most chat apps place it. */
+/* Typing indicator: one line under the composer, the way the app places it. */
 .mock-typing {
 	position: relative;
 	height: 20px;
@@ -221,11 +370,35 @@
 	background: var(--ink-muted);
 }
 .msg-avatar {
-	width: 32px;
-	height: 32px;
+	width: 38px;
+	height: 38px;
 	border-radius: 50%;
 	flex-shrink: 0;
 	background: var(--surface-300);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 600;
+	color: #fff;
+}
+/* Showcase people. Initials on a color, since a drawing has no photos. */
+.is-nina {
+	background: #7a4f86;
+}
+.is-marco {
+	background: #1f7a6d;
+}
+.is-jess {
+	background: #c0661f;
+}
+.is-theo {
+	background: #5a4aa0;
+}
+.is-sam {
+	background: #7a6a58;
+}
+.is-kai {
+	background: #2f6fb0;
 }
 .msg-avatar.is-accent {
 	background: var(--accent);
@@ -247,6 +420,9 @@
 .msg-author {
 	font-weight: 600;
 }
+.msg-author.is-self {
+	color: var(--brand-ink, var(--brand));
+}
 .msg-server {
 	font-family: var(--font-mono);
 	font-size: 11px;
@@ -261,14 +437,40 @@
 	font-weight: 500;
 }
 .mock-composer {
-	margin: 0 var(--space-4) var(--space-4);
-	height: 40px;
+	margin: 0 var(--space-4) var(--space-3);
+	height: 46px;
 	border-radius: var(--radius-md);
+	border: 1px solid var(--line-strong);
 	background: var(--surface-300);
-	padding: 0 var(--space-3);
 	display: flex;
 	align-items: center;
 	color: var(--ink-muted);
+	overflow: hidden;
+}
+.mock.is-live .mock-composer {
+	margin-bottom: 0;
+}
+.mock-attach {
+	width: 40px;
+	align-self: stretch;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-right: 1px solid var(--line-strong);
+	font-size: 18px;
+}
+.mock-composer-text {
+	flex-grow: 1;
+	padding-left: var(--space-3);
+}
+.mock-gif {
+	margin-right: var(--space-3);
+	padding: 0 4px;
+	border: 1.5px solid currentColor;
+	border-radius: 4px;
+	font-size: 10px;
+	font-weight: 600;
+	line-height: 14px;
 }
 @media (max-width: 720px) {
 	.mock-channels {
@@ -330,4 +532,42 @@
 }
 .fed-label-you {
 	fill: var(--ink);
+}
+
+/* ---------- themes panel ---------- */
+.themes-panel .shot-cap {
+	flex: 1 1 380px;
+}
+
+/* Icons in the mock: thin strokes, like the app's. */
+.mock .ico {
+	flex-shrink: 0;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.6;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+.mock-hicon {
+	color: var(--ink-muted);
+}
+.mock-hicon:first-of-type {
+	margin-left: auto;
+}
+.mock-bell {
+	margin-left: auto;
+}
+.mock-gear {
+	margin-left: auto;
+	color: var(--ink-muted);
+}
+.mock-smile {
+	margin-right: var(--space-3);
+}
+.mock-search {
+	margin-left: 4px;
+	gap: 6px;
+}
+.mock-topic {
+	display: none;
 }

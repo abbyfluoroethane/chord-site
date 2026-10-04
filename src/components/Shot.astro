@@ -1,0 +1,45 @@
+---
+// A real screenshot of the app. Renders the dark and light versions; CSS shows one of them.
+// Dark is the default. A [data-shot-theme="light"] ancestor switches to light (see ShotThemeToggle).
+import { url } from '../lib/url';
+
+interface Props {
+	platform: 'desktop' | 'android';
+	name: string;
+	alt: string;
+	class?: string;
+	/** Load now instead of when scrolled near. Use for the first screen only. */
+	eager?: boolean;
+}
+const { platform, name, alt, class: extra, eager = false } = Astro.props;
+
+// Pixel sizes of the files in public/screenshots, so the browser can reserve space.
+const sizes: Record<string, [number, number]> = {
+	'desktop/music': [1600, 1000],
+	'desktop/music-members': [1600, 1000],
+	'desktop/home': [1600, 1000],
+	'desktop/login': [1600, 1000],
+	'desktop/link-preview': [1000, 894],
+	'desktop/emoji': [1000, 1205],
+	'desktop/join': [1000, 915],
+	'desktop/profile': [962, 1722],
+	'desktop/appearance': [1000, 564],
+	'desktop/pics': [962, 1140],
+};
+const [width, height] = platform === 'android' ? [560, 1215] : sizes[`desktop/${name}`];
+---
+
+{
+	(['dark', 'light'] as const).map((theme) => (
+		<img
+			class:list={['shot', `shot-${theme}`, `shot-${platform}`, extra]}
+			src={url(`screenshots/${platform}/${name}-${theme}.webp`)}
+			alt={theme === 'dark' ? alt : ''}
+			aria-hidden={theme === 'dark' ? undefined : 'true'}
+			width={width}
+			height={height}
+			loading={eager ? 'eager' : 'lazy'}
+			decoding="async"
+		/>
+	))
+}
