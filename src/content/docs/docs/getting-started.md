@@ -15,9 +15,9 @@ Chord is not released yet. This page shows the structure of the guide. Replace e
 
 [Download Chord for Android](/chord-site/download/chord-android-arm64.apk) (17.8 MB, for 64-bit ARM phones, Android 8.0 or later).
 
-This is a test build, version 0.1.0 (`aea493b`). It is signed with a test key, so Android asks you to allow installs from your browser. If an older Chord test build is on the phone, uninstall it first.
+This is a test build, version 0.1.0 (`09c83fb`). It is signed with a test key, so Android asks you to allow installs from your browser. A new test build installs over an older one, and you stay signed in.
 
-SHA-256: `1b48dd2de247abe73ef5ff41c9f7da1da618d2cf1d1e8f293d711614731db50c`
+SHA-256: `73b766306e8446f1541d6332f2f5a196914cc8f61711a5a038879d12c5459798`
 
 ## Sign in
 
